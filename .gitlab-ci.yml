@@ -1,0 +1,21 @@
+image:           node:latest
+
+stages:
+  - test
+  - deploy
+
+test:
+    stage:       test
+    script:
+        - npm install
+        - npm test
+
+deploy_staging:
+  stage:         deploy
+  script:
+    - bash ci/deploy.sh staging
+  environment:
+    name:        staging
+    url:         https://staging.job-lion.et.tc
+  only:
+    - master@job-lion/job-lion-frontend
