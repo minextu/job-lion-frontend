@@ -10,7 +10,7 @@
         "react-scripts": "1.0.14"
     },
     "scripts": {
-        "lint": "eslint src/*.js",
+        "lint": "eslint src",
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "npm run lint",

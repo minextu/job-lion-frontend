@@ -13,7 +13,7 @@ class Home extends Component {
         <div id ="leiste" />
 
         <Suche />
-        
+
         <div className="container" id="bulletPoint">
           <div className="row">
             <div className="col-md-4">
