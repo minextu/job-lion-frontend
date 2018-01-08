@@ -9,7 +9,11 @@ class Home extends Component {
   render() {
     return (
       <div className="Home">
+        <div className="parallax" />
+        <div id ="leiste" />
+
         <Suche />
+        
         <div className="container" id="bulletPoint">
           <div className="row">
             <div className="col-md-4">

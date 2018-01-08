@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-import App from './App';
+import Header from './components/Header';
+import Main from './components/Main';
+import Footer from './components/Footer';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
@@ -11,7 +13,11 @@ import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render((
   <BrowserRouter>
-    <App />
+    <div id='main-wrapper'>
+      <Header />
+      <Main />
+      <Footer />
+    </div>
   </BrowserRouter>
 ), document.getElementById('root'));
 

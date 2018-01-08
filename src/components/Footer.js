@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.css';
 
-class Suche extends Component {
+class Footer extends Component {
   render() {
     return (
       <footer>
@@ -19,4 +19,4 @@ class Suche extends Component {
   }
 }
 
-export default Suche;
+export default Footer;
