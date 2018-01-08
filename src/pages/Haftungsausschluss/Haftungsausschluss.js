@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Haftungsausschluss.css';
 
 class Haftungsausschluss extends Component {
   render() {

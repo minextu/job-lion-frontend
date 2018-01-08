@@ -1,3 +1,7 @@
+.Home {
+	margin: -3em;
+}
+
 .parallax {
 	background-image: url(images/Hintergrund1080.png);
 	background-size: 25em 30em;

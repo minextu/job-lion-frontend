@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Datenschutz.css';
 
 class Datenschutz extends Component {
   render() {
