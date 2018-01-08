@@ -1,0 +1,23 @@
+{
+    "name": "job-lion-frontend",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "bootstrap": "^4.0.0-beta.3",
+        "react": "^16.0.0",
+        "react-dom": "^16.0.0",
+        "react-router-dom": "^4.2.2",
+        "react-scripts": "1.0.14"
+    },
+    "scripts": {
+        "lint": "eslint src/*.js",
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "npm run lint",
+        "eject": "react-scripts eject"
+    },
+    "devDependencies": {
+        "eslint": "^4.15.0",
+        "eslint-plugin-react": "^7.5.1"
+    }
+}

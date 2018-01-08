@@ -1,0 +1,15 @@
+{
+    "short_name": "Job Lion",
+    "name": "Auf JobLion erhälst du Zugriff auf eine einzigartige Datenbank mit echten Erfahrungsberichten.",
+    "icons": [
+        {
+            "src": "favicon.ico",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "./index.html",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+}
