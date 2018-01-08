@@ -4,15 +4,14 @@ class Kategorien extends Component {
   render() {
     return (
       <div className="Kategorien">
-      				<form action="">
+        <form action="">
 
-      					<label htmlFor="kategorie">Kategorie hinzufügen</label>
-      					<input type="text" id="kategorie" name="kategorie" placeholder="Kategorie hinzufügen..." />
+          <label htmlFor="kategorie">Kategorie hinzufügen</label>
+          <input type="text" id="kategorie" name="kategorie" placeholder="Kategorie hinzufügen..." />
 
-      					<input type="submit" value="Kategorie hinzufügen" />
-      				</form>
-      			</div>
-
+          <input type="submit" value="Kategorie hinzufügen" />
+        </form>
+      </div>
     );
   }
 }

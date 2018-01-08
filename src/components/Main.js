@@ -6,6 +6,8 @@ import Kategorien from '../pages/Kategorien/Kategorien';
 import Erfahrungsberichte from '../pages/Erfahrungsberichte/Erfahrungsberichte';
 import Impressum from '../pages/Impressum/Impressum';
 import Anmeldung from '../pages/Anmeldung/Anmeldung';
+import Registrieren from '../pages/Registrieren/Registrieren';
+import PasswortVergessen from '../pages/PasswortVergessen/PasswortVergessen';
 import Datenschutz from '../pages/Datenschutz/Datenschutz';
 import Haftungsausschluss from '../pages/Haftungsausschluss/Haftungsausschluss';
 import NotFound from '../pages/NotFound/NotFound';
@@ -23,6 +25,8 @@ class Main extends Component {
           <Route exact path='/Erfahrungsberichte' component={Erfahrungsberichte}/>
           <Route exact path='/Impressum' component={Impressum}/>
           <Route exact path='/Anmeldung' component={Anmeldung}/>
+          <Route exact path='/Registrieren' component={Registrieren}/>
+          <Route exact path='/PasswortVergessen' component={PasswortVergessen}/>
           <Route exact path='/Datenschutz' component={Datenschutz}/>
           <Route exact path='/Haftungsausschluss' component={Haftungsausschluss}/>
           <Route path="*" component={NotFound} />
