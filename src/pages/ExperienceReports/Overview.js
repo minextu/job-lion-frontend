@@ -1,10 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Categories from './Categories';
 
-class Erfahrungsberichte extends Component {
+class Overview extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      reports: [],
+      categories: []
+    };
+  }
+
   render() {
     return (
-      <div className="Erfahrungsberichte">
+      <div className="ExperienceReportOverview">
+        <h1>Erfahrungsberichte</h1>
+
+        <Categories/>
+
+        <h3>Hinzufügen</h3>
         <form action="">
           <label htmlFor="titel">Titel</label>
           <input type="text" id="titel" name="titel" placeholder="Titel hinzufügen..." /><br/>
@@ -19,4 +34,4 @@ class Erfahrungsberichte extends Component {
   }
 }
 
-export default Erfahrungsberichte;
+export default Overview;

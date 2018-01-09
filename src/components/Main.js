@@ -3,7 +3,9 @@ import './Main.css';
 
 import Home from '../pages/Home/Home';
 import Kategorien from '../pages/Kategorien/Kategorien';
-import Erfahrungsberichte from '../pages/Erfahrungsberichte/Erfahrungsberichte';
+import ExperienceReportOverview from '../pages/ExperienceReports/Overview';
+import ExperienceReportList from '../pages/ExperienceReports/List';
+import ExperienceReportShow from '../pages/ExperienceReports/Show';
 import Impressum from '../pages/Impressum/Impressum';
 import Anmeldung from '../pages/Anmeldung/Anmeldung';
 import Registrieren from '../pages/Registrieren/Registrieren';
@@ -22,7 +24,9 @@ class Main extends Component {
         <Switch>
           <Route exact path='/' component={Home}/>
           <Route exact path='/Kategorien' component={Kategorien}/>
-          <Route exact path='/Erfahrungsberichte' component={Erfahrungsberichte}/>
+          <Route exact path='/Erfahrungsberichte' component={ExperienceReportOverview}/>
+          <Route exact path='/Erfahrungsberichte/:categoryId' component={ExperienceReportList}/>
+          <Route exact path='/Erfahrungsbericht/:reportId' component={ExperienceReportShow}/>
           <Route exact path='/Impressum' component={Impressum}/>
           <Route exact path='/Anmeldung' component={Anmeldung}/>
           <Route exact path='/Registrieren' component={Registrieren}/>
