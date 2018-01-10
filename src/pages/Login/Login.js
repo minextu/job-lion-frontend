@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import './Anmeldung.css';
 
-class Anmeldung extends Component {
+class Login extends Component {
   render() {
     return (
       <div className="Anmeldung">
@@ -22,4 +21,4 @@ class Anmeldung extends Component {
   }
 }
 
-export default Anmeldung;
+export default Login;

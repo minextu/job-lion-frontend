@@ -7,7 +7,7 @@ import ExperienceReportOverview from '../pages/ExperienceReports/Overview';
 import ExperienceReportList from '../pages/ExperienceReports/List';
 import ExperienceReportShow from '../pages/ExperienceReports/Show';
 import Impressum from '../pages/Impressum/Impressum';
-import Anmeldung from '../pages/Anmeldung/Anmeldung';
+import Login from '../pages/Login/Login';
 import Registrieren from '../pages/Registrieren/Registrieren';
 import PasswortVergessen from '../pages/PasswortVergessen/PasswortVergessen';
 import Datenschutz from '../pages/Datenschutz/Datenschutz';
@@ -28,7 +28,7 @@ class Main extends Component {
           <Route exact path='/Erfahrungsberichte/:categoryId' component={ExperienceReportList}/>
           <Route exact path='/Erfahrungsbericht/:reportId' component={ExperienceReportShow}/>
           <Route exact path='/Impressum' component={Impressum}/>
-          <Route exact path='/Anmeldung' component={Anmeldung}/>
+          <Route exact path='/Anmelden' component={Login}/>
           <Route exact path='/Registrieren' component={Registrieren}/>
           <Route exact path='/PasswortVergessen' component={PasswortVergessen}/>
           <Route exact path='/Datenschutz' component={Datenschutz}/>
