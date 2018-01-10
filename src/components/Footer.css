@@ -1,22 +1,18 @@
 footer {
 	background-color: #333333;
-	height: "100em";
 	width: 100%;
-	padding: 1em 0 2.5em 0;
+	padding: 1em;
 	color: #747172;
-}
-
-footer p {
-	padding: 0 0 0 2.5em;
-	float: left;
+	margin-top: auto;
 }
 
 #footerList {
 	list-style: none;
+	padding: 0;
 	color: #747172;
 }
 
-#footerList a{
+#footerList a {
 	list-style: none;
 	color: #747172;
 }

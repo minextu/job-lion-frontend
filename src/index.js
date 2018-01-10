@@ -14,7 +14,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render((
   <BrowserRouter>
-    <div id='main-wrapper'>
+    <div id='mainWrapper'>
       <Header />
       <Main />
       <Footer />
