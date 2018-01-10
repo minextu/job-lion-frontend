@@ -10,7 +10,7 @@ class List extends Component {
 
     this.state = {
       reports: [],
-      categoryId: this.props.match.params.categoryId,
+      categoryId: Number(this.props.match.params.categoryId),
       isLoading: true
     };
   }
@@ -20,9 +20,9 @@ class List extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let newCategoryId = nextProps.match.params.categoryId;
+    let newCategoryId = Number(nextProps.match.params.categoryId);
 
-    if (newCategoryId !== this.props.match.params.categoryId) {
+    if (newCategoryId !== Number(this.props.match.params.categoryId)) {
       this.setState({
         categoryId: newCategoryId,
         isLoading: true,

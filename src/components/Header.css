@@ -4,7 +4,8 @@
 }
 
 .topNav .navbar-brand {
-	padding-left: 1em;
+	padding: 0 1em;
+	margin: 0;
 }
 
 .topNav div a {

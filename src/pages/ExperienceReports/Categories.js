@@ -51,7 +51,7 @@ class Categories extends Component {
 }
 
 Categories.propTypes = {
-  active: PropTypes.bool.isRequired,
+  active: PropTypes.number,
 };
 
 export default Categories;
