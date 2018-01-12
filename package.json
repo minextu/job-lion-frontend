@@ -5,18 +5,25 @@
     "private": true,
     "dependencies": {
         "bootstrap": "^4.0.0-beta.3",
+        "immutable": "^3.8.2",
         "jquery": "^3.2.1",
         "popper.js": "^1.12.9",
         "react": "^16.0.0",
         "react-dom": "^16.0.0",
+        "react-redux": "^5.0.6",
         "react-router-dom": "^4.2.2",
-        "react-scripts": "1.0.14"
+        "react-scripts": "1.0.14",
+        "react-thunk": "^1.0.0",
+        "redux": "^3.7.2",
+        "redux-logger": "^3.0.6",
+        "redux-thunk": "^2.2.0"
     },
     "scripts": {
-        "lint": "eslint src",
+        "lint": "eslint src --ignore-pattern *.test.js",
         "start": "react-scripts start",
         "build": "react-scripts build",
-        "test": "npm run lint",
+        "pretest": "npm run lint",
+        "test": "CI=true react-scripts test",
         "eject": "react-scripts eject"
     },
     "devDependencies": {

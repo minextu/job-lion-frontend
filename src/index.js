@@ -1,25 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-
-import Header from './components/Header';
-import Main from './components/Main';
-import Footer from './components/Footer';
-
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import '../node_modules/bootstrap/dist/js/bootstrap.min.js';
-import './index.css';
-
+import thunkMiddleware from 'redux-thunk';
+import { createLogger } from 'redux-logger';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
 import registerServiceWorker from './registerServiceWorker';
 
+import reducers from './_reducers';
+import App from './App';
+
+const loggerMiddleware = createLogger();
+
 ReactDOM.render((
-  <BrowserRouter>
-    <div id='mainWrapper'>
-      <Header />
-      <Main />
-      <Footer />
-    </div>
-  </BrowserRouter>
+  <Provider store={createStore(reducers, applyMiddleware(thunkMiddleware, loggerMiddleware))}>
+    <App/>
+  </Provider>
 ), document.getElementById('root'));
 
 registerServiceWorker();

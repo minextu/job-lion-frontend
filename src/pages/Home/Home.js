@@ -19,7 +19,7 @@ class Home extends Component {
             <div className="col-md-4">
               <img src={netzwerk150} alt="netzwerk" width="250em" height="250em" />
               <h3>Profitiere von einem großen Netzwerk</h3>
-              <p>Auf JobLion erhälst du Zugriff auf eine einzigartige Datenbank mit echten Erfahrungsberichten.</p>
+              <p>Auf JobLion erhältst du Zugriff auf eine einzigartige Datenbank mit echten Erfahrungsberichten.</p>
             </div>
             <div className="col-md-4">
               <img src={austausch150} alt="austausch" width="250em" height="250em" />
