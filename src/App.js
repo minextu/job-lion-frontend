@@ -9,7 +9,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.min.js';
 import './index.css';
 
-const App = (
+const App = () => (
   <BrowserRouter>
     <div id='App'>
       <Header />

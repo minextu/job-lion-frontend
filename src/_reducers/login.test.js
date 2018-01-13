@@ -1,3 +1,5 @@
+require('jest-localstorage-mock');
+
 import Reducer from './login';
 
 test('REQUEST_LOGIN_TOKEN action changes state', () => {
