@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import './Header.css';
 
 class Header extends Component {
@@ -10,12 +12,23 @@ class Header extends Component {
       navLinks: [
         { title: "Kategorien", path: "/Kategorien" },
         { title: "Erfahrungsberichte", path: "/Erfahrungsberichte" },
-        { title: "Impressum", path: "/Impressum" },
+        { title: "Impressum", path: "/Impressum" }
+      ],
+      loginLinks: [
         { title: "Anmelden", path: "/Anmelden" }
+      ],
+      loggedInLinks: [
+        { title: "Einstellungen", path: "/Einstellungen" },
+        { title: "Abmelden", path: "/Abmelden" }
       ]
     };
   }
   render() {
+    let rightNavLinks = this.state.loginLinks;
+    if (this.props.loggedIn) {
+      rightNavLinks = this.state.loggedInLinks;
+    }
+
     return (
       <header>
         <nav className="navbar navbar-expand-md navbar-dark topNav">
@@ -33,6 +46,16 @@ class Header extends Component {
               ))}
 
             </div>
+
+            <div className="navbar-nav ml-auto">
+
+              {rightNavLinks.map((link, idx) => (
+                <li key={idx} data-toggle="collapse" data-target=".navbar-collapse.show">
+                  <Link className="nav-item nav-link" to={link.path}>{link.title}</Link>
+                </li>
+              ))}
+
+            </div>
           </div>
         </nav>
       </header>
@@ -40,4 +63,14 @@ class Header extends Component {
   }
 }
 
-export default Header;
+Header.propTypes = {
+  loggedIn: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.login.loggedIn
+  };
+};
+
+export default connect(mapStateToProps)(Header);

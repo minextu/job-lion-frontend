@@ -4,7 +4,16 @@ export function login(email, password) {
   return _sendLoginRequest(email, password);
 }
 
+export function receiveLoginToken(token) {
+  localStorage.setItem('loginToken', token);
+  return {
+    type: 'RECEIVE_LOGIN_TOKEN',
+    token
+  };
+}
+
 export function logout() {
+  localStorage.removeItem('loginToken');
   return {
     type: 'LOGOUT'
   };
@@ -15,13 +24,6 @@ function _requestLoginToken(email, password) {
     type: 'REQUEST_LOGIN_TOKEN',
     email,
     password
-  };
-}
-
-function _receiveLoginToken(json) {
-  return {
-    type: 'RECEIVE_LOGIN_TOKEN',
-    token: json.token
   };
 }
 
@@ -42,7 +44,7 @@ function _sendLoginRequest(email, password) {
           dispatch(_receiveLoginTokenFailure(json));
         }
         else {
-          dispatch(_receiveLoginToken(json));
+          dispatch(receiveLoginToken(json.token));
         }
       });
   };

@@ -11,7 +11,7 @@ class Api {
 
   static _fetch(url, params = {}, method) {
     // add login token parameter
-    params.jwt = sessionStorage.loginToken;
+    params.jwt = localStorage.getItem('loginToken');
 
     // parse params
     let data = new URLSearchParams();

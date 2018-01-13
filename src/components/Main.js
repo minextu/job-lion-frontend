@@ -7,7 +7,7 @@ import ExperienceReportOverview from '../pages/ExperienceReports/Overview';
 import ExperienceReportList from '../pages/ExperienceReports/List';
 import ExperienceReportShow from '../pages/ExperienceReports/Show';
 import Impressum from '../pages/Impressum';
-import Login from '../pages/Login';
+import { Login, Logout } from '../pages/Login';
 import Registrieren from '../pages/Registrieren';
 import PasswortVergessen from '../pages/PasswortVergessen';
 import Datenschutz from '../pages/Datenschutz';
@@ -29,6 +29,7 @@ class Main extends Component {
           <Route exact path='/Erfahrungsbericht/:reportId' component={ExperienceReportShow}/>
           <Route exact path='/Impressum' component={Impressum}/>
           <Route exact path='/Anmelden' component={Login}/>
+          <Route exact path='/Abmelden' component={Logout}/>
           <Route exact path='/Registrieren' component={Registrieren}/>
           <Route exact path='/PasswortVergessen' component={PasswortVergessen}/>
           <Route exact path='/Datenschutz' component={Datenschutz}/>

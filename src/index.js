@@ -9,13 +9,12 @@ import registerServiceWorker from './registerServiceWorker';
 import reducers from './_reducers';
 import App from './App';
 
+// setup middleware
 let middleware = [thunkMiddleware];
 if (process.env.NODE_ENV !== 'production') {
   const loggerMiddleware = createLogger();
   middleware = [...middleware, loggerMiddleware];
 }
-
-console.log(process.env.NODE_ENV);
 
 ReactDOM.render((
   <Provider store={createStore(reducers, applyMiddleware(...middleware))}>
