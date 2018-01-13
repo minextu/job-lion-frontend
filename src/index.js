@@ -9,10 +9,16 @@ import registerServiceWorker from './registerServiceWorker';
 import reducers from './_reducers';
 import App from './App';
 
-const loggerMiddleware = createLogger();
+let middleware = [thunkMiddleware];
+if (process.env.NODE_ENV !== 'production') {
+  const loggerMiddleware = createLogger();
+  middleware = [...middleware, loggerMiddleware];
+}
+
+console.log(process.env.NODE_ENV);
 
 ReactDOM.render((
-  <Provider store={createStore(reducers, applyMiddleware(thunkMiddleware, loggerMiddleware))}>
+  <Provider store={createStore(reducers, applyMiddleware(...middleware))}>
     <App/>
   </Provider>
 ), document.getElementById('root'));

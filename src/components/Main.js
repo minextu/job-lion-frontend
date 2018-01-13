@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import './Main.css';
 
 import Home from '../pages/Home/Home';
-import Kategorien from '../pages/Kategorien/Kategorien';
+import Kategorien from '../pages/Kategorien';
 import ExperienceReportOverview from '../pages/ExperienceReports/Overview';
 import ExperienceReportList from '../pages/ExperienceReports/List';
 import ExperienceReportShow from '../pages/ExperienceReports/Show';
-import Impressum from '../pages/Impressum/Impressum';
-import Login from '../pages/Login/Login';
-import Registrieren from '../pages/Registrieren/Registrieren';
-import PasswortVergessen from '../pages/PasswortVergessen/PasswortVergessen';
-import Datenschutz from '../pages/Datenschutz/Datenschutz';
-import Haftungsausschluss from '../pages/Haftungsausschluss/Haftungsausschluss';
-import NotFound from '../pages/NotFound/NotFound';
+import Impressum from '../pages/Impressum';
+import Login from '../pages/Login';
+import Registrieren from '../pages/Registrieren';
+import PasswortVergessen from '../pages/PasswortVergessen';
+import Datenschutz from '../pages/Datenschutz';
+import Haftungsausschluss from '../pages/Haftungsausschluss';
+import NotFound from '../pages/NotFound';
 
 import { Switch, Route } from 'react-router-dom';
 

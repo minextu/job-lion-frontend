@@ -1,11 +1,9 @@
-import Immutable from 'immutable';
-
-const defaultState = Immutable.fromJS({
+const defaultState = {
   isFetching: false,
   loggedIn: false,
   token: null,
   error: null
-});
+};
 
 export default function loginReducer(state = defaultState, action) {
   switch (action.type) {
