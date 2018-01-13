@@ -1,7 +1,7 @@
 const defaultState = {
   isFetching: false,
-  loggedIn: false,
-  token: null,
+  loggedIn: !!localStorage.getItem('loginToken'),
+  token: localStorage.getItem('loginToken') ? localStorage.getItem('loginToken') : null,
   error: null
 };
 
