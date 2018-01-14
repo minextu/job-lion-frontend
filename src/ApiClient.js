@@ -1,17 +1,19 @@
 const apiUrl = "/api";
 
 class Api {
-  static get(url, params) {
-    return this._fetch(url, params, "GET");
+  static get(url, params, auth) {
+    return this._fetch(url, params, "GET", auth);
   }
 
-  static post(url, params) {
-    return this._fetch(url, params, "POST");
+  static post(url, params, auth) {
+    return this._fetch(url, params, "POST", auth);
   }
 
-  static _fetch(url, params = {}, method) {
+  static _fetch(url, params = {}, method, auth = false) {
     // add login token parameter
-    params.jwt = localStorage.getItem('loginToken');
+    if (auth) {
+      params.jwt = localStorage.getItem('loginToken');
+    }
 
     // parse params
     let data = new URLSearchParams();

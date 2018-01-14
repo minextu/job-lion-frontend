@@ -3,15 +3,6 @@ import { Link } from 'react-router-dom';
 import Categories from './Categories';
 
 class Overview extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      reports: [],
-      categories: []
-    };
-  }
-
   render() {
     return (
       <div className="ExperienceReportOverview">

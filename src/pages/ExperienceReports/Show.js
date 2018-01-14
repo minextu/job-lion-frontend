@@ -1,50 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import { requestReport } from '../../_actions/report';
 
 class Show extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      info: [],
-      reportId: this.props.match.params.reportId,
-      isLoading: true
-    };
-  }
-
   componentDidMount() {
-    this.fetchReport(this.state.reportId);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    let newReportId = nextProps.match.params.reportId;
-
-    if (newReportId !== this.props.match.params.reportId) {
-      this.setState({
-        reportId: newReportId,
-        isLoading: true,
-        info: [] });
-      this.fetchReport(newReportId);
+    // fetch report if not cached
+    if (!this.props.reports[this.props.reportId]) {
+      this.props.dispatch(
+        requestReport(this.props.reportId)
+      );
     }
-  }
-
-  fetchReport(reportId) {
-    fetch(`/api/v1/experienceReports/${reportId}`)
-      .then(res => res.json())
-      .then(info => this.setState({ info, isLoading: false }));
   }
 
   render() {
-    const info = this.state.info;
+    const info = this.props.reports[this.props.reportId];
 
     let infoHtml = null;
-    if (this.state.isLoading) {
+    if (this.props.isFetching || !info) {
       infoHtml = <div className='loading'/>;
     }
-    else if (info.error === "NotFound") {
+    else if (this.props.errorCode) {
       infoHtml = (
         <div className="alert alert-danger" role="alert">
-        Erfahrungsbericht nicht gefunden!
+          {this.props.errorCode}
         </div>
       );
     }
@@ -68,9 +48,20 @@ class Show extends Component {
 }
 
 Show.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.object,
-  }).isRequired,
+  reportId: PropTypes.number.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  errorCode: PropTypes.string,
+  reports: PropTypes.object.isRequired
 };
 
-export default Show;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    reports: state.report.reports,
+    isFetching: state.report.isFetching,
+    errorCode: state.report.errorCode,
+    reportId: Number(ownProps.match.params.reportId)
+  };
+};
+
+export default connect(mapStateToProps)(Show);

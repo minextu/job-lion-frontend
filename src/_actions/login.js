@@ -27,10 +27,10 @@ function _requestLoginToken(email, password) {
   };
 }
 
-function _receiveLoginTokenFailure(json) {
+function _receiveLoginTokenFailure(errorCode) {
   return {
     type: 'REQUEST_LOGIN_TOKEN_FAILURE',
-    error: json.error
+    errorCode
   };
 }
 
@@ -41,7 +41,7 @@ function _sendLoginRequest(email, password) {
     return api.post("v1/auth/login", { email, password })
       .then(json => {
         if (json.error) {
-          dispatch(_receiveLoginTokenFailure(json));
+          dispatch(_receiveLoginTokenFailure(json.error));
         }
         else {
           dispatch(_receiveLoginToken(json.token));

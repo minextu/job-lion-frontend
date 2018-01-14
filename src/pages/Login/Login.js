@@ -15,14 +15,16 @@ class Login extends Component {
   }
 
   handleSubmit(e) {
-    this.props.dispatch(login(this.state.email, this.state.password));
+    this.props.dispatch(
+      login(this.state.email, this.state.password)
+    );
     e.preventDefault();
   }
 
   render() {
     return (
       <div className="Anmeldung">
-        <AlertBox loggedIn={this.props.loggedIn} errorCode={this.props.error}/>
+        <AlertBox loggedIn={this.props.loggedIn} errorCode={this.props.errorCode}/>
         <form action='#' onSubmit={this.handleSubmit}>
 
           <label htmlFor="email">Email</label>
@@ -51,13 +53,13 @@ class Login extends Component {
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired,
-  error: PropTypes.string
+  errorCode: PropTypes.string
 };
 
 const mapStateToProps = (state) => {
   return {
     loggedIn: state.login.loggedIn,
-    error: state.login.error
+    errorCode: state.login.errorCode
   };
 };
 

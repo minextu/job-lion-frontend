@@ -1,5 +1,3 @@
-require('jest-localstorage-mock');
-
 import Reducer from './login';
 
 test('REQUEST_LOGIN_TOKEN action changes state', () => {
@@ -13,7 +11,7 @@ test('REQUEST_LOGIN_TOKEN action changes state', () => {
     isFetching: true,
     loggedIn: false,
     token: null,
-    error: null
+    errorCode: null
   };
 
   expect(
@@ -43,13 +41,13 @@ test('RECEIVE_LOGIN_TOKEN action changes state', () => {
 test('REQUEST_LOGIN_TOKEN_FAILURE action changes state', () => {
   const action = {
     type: 'REQUEST_LOGIN_TOKEN_FAILURE',
-    error: 'testError'
+    errorCode: 'testError'
   };
   const stateBefore = {
 
   };
   const stateAfter = {
-    error: 'testError',
+    errorCode: 'testError',
     isFetching: false
   };
 

@@ -2,7 +2,7 @@ const defaultState = {
   isFetching: false,
   loggedIn: !!localStorage.getItem('loginToken'),
   token: localStorage.getItem('loginToken') ? localStorage.getItem('loginToken') : null,
-  error: null
+  errorCode: null
 };
 
 export default function loginReducer(state = defaultState, action) {
@@ -12,7 +12,7 @@ export default function loginReducer(state = defaultState, action) {
       isFetching: true,
       loggedIn: false,
       token: null,
-      error: null
+      errorCode: null
     });
   case 'RECEIVE_LOGIN_TOKEN':
     return Object.assign({}, state, {
@@ -23,7 +23,7 @@ export default function loginReducer(state = defaultState, action) {
   case 'REQUEST_LOGIN_TOKEN_FAILURE':
     return Object.assign({}, state, {
       isFetching: false,
-      error: action.error
+      errorCode: action.errorCode
     });
   case 'LOGOUT':
     return Object.assign({}, state, {

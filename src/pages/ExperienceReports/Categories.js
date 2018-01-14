@@ -1,33 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import './Categories.css';
+import { requestCategories } from '../../_actions/category';
 
 class Categories extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      categories: [],
-      active: props.active,
-      isLoading: true
-    };
-  }
-
+  // fetch categories if not cached
   componentDidMount() {
-    // get all categories
-    fetch('/api/v1/jobCategories/')
-      .then(res => res.json())
-      .then(categories => this.setState({ categories, isLoading: false }));
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({ active: nextProps.active });
+    if (this.props.categories.length === 0) {
+      this.props.dispatch(
+        requestCategories()
+      );
+    }
   }
 
   render() {
-    const categories = this.state.categories.map((category, idx) => {
-      let itemClass = category.id === this.state.active ? "nav-item active" : "nav-item";
+    const categories = this.props.categories.map((category, idx) => {
+      let itemClass = category.id === this.props.active ? "nav-item active" : "nav-item";
 
       return (
         <li className={itemClass} key={idx}>
@@ -39,7 +30,7 @@ class Categories extends Component {
     return (
       <nav className="navbar navbar-expand-sm navbar-light bg-jb-orange">
         <span className="navbar-brand">Kategorien</span>
-        { this.state.isLoading
+        { this.props.isFetching
           && <span className='inline-loading'/>
         }
         <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -52,6 +43,18 @@ class Categories extends Component {
 
 Categories.propTypes = {
   active: PropTypes.number,
+  dispatch: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  errorCode: PropTypes.string
 };
 
-export default Categories;
+const mapStateToProps = (state) => {
+  return {
+    categories: state.category.categories,
+    isFetching: state.category.isFetching,
+    errorCode: state.category.errorCode
+  };
+};
+
+export default connect(mapStateToProps)(Categories);
