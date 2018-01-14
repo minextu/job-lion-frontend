@@ -38,26 +38,25 @@ input[type=text], input[type=password], input[type=email], select {
     box-sizing: border-box;
 }
 
-.loading {
-  width: 40px;
-  height: 40px;
-  margin: 29px auto;
-  background-color: #333;
+.loading, .inline-loading {
+	display: block;
+	background-color: #333;
 
   border-radius: 100%;
   animation: sk-scaleout 1.0s infinite ease-in-out;
 	transition: all 1s;
 }
 
+.loading {
+  width: 40px;
+  height: 40px;
+  margin: 29px auto;
+}
+
 .inline-loading {
   width: 40px;
   height: 40px;
   margin: 0px auto;
-  background-color: #333;
-
-  border-radius: 100%;
-  animation: sk-scaleout 1.0s infinite ease-in-out;
-	transition: all 1s;
 }
 
 @keyframes sk-scaleout {
