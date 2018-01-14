@@ -1,11 +1,34 @@
 import api from '../ApiClient';
 
-export function requestReports(categoryId) {
-  return _sendReportsRequest(categoryId);
+export function fetchReportsIfNeeded(jobCategoryId) {
+  return (dispatch, getState) => {
+    const state = getState().report;
+    const reports = state.reportsByCategory[jobCategoryId];
+
+    if (!reports && !state.isFetching) {
+      dispatch(_sendReportsRequest(jobCategoryId));
+    }
+  };
 }
 
-export function requestReport(reportId) {
-  return _sendReportRequest(reportId);
+export function fetchReportIfNeeded(reportId) {
+  return (dispatch, getState) => {
+    const state = getState().report;
+    const report = state.reports[reportId];
+
+    if (!report && !state.isFetching) {
+      dispatch(_sendReportRequest(reportId));
+    }
+  };
+}
+
+export function createReport(title, text) {
+  return (dispatch, getState) => {
+    const state = getState().report;
+    if (!state.isCreating) {
+      dispatch(_sendCreateReportRequest(title, text));
+    }
+  };
 }
 
 function _receiveReports(reports, categoryId) {
@@ -61,6 +84,13 @@ function _requestReport(reportId) {
   };
 }
 
+function _receiveReportFailure(errorCode) {
+  return {
+    type: 'REQUEST_REPORT_FAILURE',
+    errorCode
+  };
+}
+
 function _sendReportRequest(reportId) {
   return function (dispatch) {
     dispatch(_requestReport(reportId));
@@ -68,10 +98,45 @@ function _sendReportRequest(reportId) {
     return api.get(`v1/experienceReports/${reportId}`)
       .then(json => {
         if (json.error) {
-          dispatch(_receiveReportsFailure(json.error));
+          dispatch(_receiveReportFailure(json.error));
         }
         else {
           dispatch(_receiveReport(json, reportId));
+        }
+      });
+  };
+}
+
+function _createReportSuccess() {
+  return {
+    type: 'CREATE_REPORT_SUCCESS',
+  };
+}
+
+function _requestCreateReport() {
+  return {
+    type: 'REQUEST_CREATE_REPORT'
+  };
+}
+
+function _createReportFailure(errorCode) {
+  return {
+    type: 'CREATE_REPORT_FAILURE',
+    errorCode
+  };
+}
+
+function _sendCreateReportRequest(title, text) {
+  return function (dispatch) {
+    dispatch(_requestCreateReport());
+
+    return api.post(`v1/experienceReports/`, { title, text }, true)
+      .then(json => {
+        if (json.error) {
+          dispatch(_createReportFailure(json.error));
+        }
+        else {
+          dispatch(_createReportSuccess());
         }
       });
   };

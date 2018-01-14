@@ -6,13 +6,15 @@ import { logout } from '../../_actions/login';
 
 class Logout extends Component {
   componentWillMount() {
+    const { dispatch, loggedIn } = this.props;
+
     // stop if not logged in
-    if (!this.props.loggedIn) {
+    if (!loggedIn) {
       this.alreadyLoggedOut = true;
     }
     // logout the user
     else {
-      this.props.dispatch(logout());
+      dispatch(logout());
       this.alreadyLoggedOut = false;
     }
   }

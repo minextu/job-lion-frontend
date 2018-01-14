@@ -1,7 +1,14 @@
 import api from '../ApiClient';
 
-export function requestCategories() {
-  return _sendCategorieRequest();
+export function fetchCategoriesIfNeeded() {
+  return (dispatch, getState) => {
+    const state = getState().category;
+    const categories = state.categories;
+
+    if (categories.length === 0 && !state.isFetching) {
+      dispatch(_sendCategorieRequest());
+    }
+  };
 }
 
 function _receiveCategories(categories) {

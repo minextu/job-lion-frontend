@@ -1,8 +1,10 @@
 const defaultState = {
   isFetching: false,
+  isCreating: false,
   reportsByCategory: {},
   reports: {},
-  errorCode: null
+  errorCode: null,
+  errorCodeCreate: null
 };
 
 let changedReports = {};
@@ -47,6 +49,26 @@ export default function reportReducer(state = defaultState, action) {
     return Object.assign({}, state, {
       isFetching: false,
       reports: Object.assign({}, state.reports, changedReports)
+    });
+  case 'REQUEST_REPORT_FAILURE':
+    return Object.assign({}, state, {
+      isFetching: false,
+      errorCode: action.errorCode
+    });
+
+  case 'REQUEST_CREATE_REPORT':
+    return Object.assign({}, state, {
+      isCreating: true,
+      errorCodeCreate: null
+    });
+  case 'CREATE_REPORT_SUCCESS':
+    return Object.assign({}, state, {
+      isCreating: false
+    });
+  case 'CREATE_REPORT_FAILURE':
+    return Object.assign({}, state, {
+      isCreating: false,
+      errorCodeCreate: action.errorCode
     });
   default:
     return state;

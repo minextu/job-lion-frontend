@@ -4,33 +4,31 @@ import { Link } from 'react-router-dom';
 import Categories from './Categories';
 import { connect } from 'react-redux';
 
-import { requestReports } from '../../_actions/report';
+import { fetchReportsIfNeeded } from '../../_actions/report';
 import './List.css';
 
 class List extends Component {
   componentDidMount() {
-    // request reports if not already cached
-    if (!this.props.reports[this.props.categoryId]) {
-      this.props.dispatch(
-        requestReports(this.props.categoryId)
-      );
-    }
+    this.props.dispatch(
+      fetchReportsIfNeeded(this.props.categoryId)
+    );
   }
 
   componentDidUpdate(prevProps) {
-    // request reports if not already cached
-    if (this.props.categoryId !== prevProps.categoryId
-      && !this.props.reports[this.props.categoryId]) {
+    // request reports if a new category was selected
+    if (this.props.categoryId !== prevProps.categoryId) {
       this.props.dispatch(
-        requestReports(this.props.categoryId)
+        fetchReportsIfNeeded(this.props.categoryId)
       );
     }
   }
 
   render() {
+    const { reports, categoryId, isFetching } = this.props;
     let reportList = null;
-    if (this.props.reports[this.props.categoryId]) {
-      reportList = this.props.reports[this.props.categoryId].map((report, idx) => (
+
+    if (reports[categoryId]) {
+      reportList = reports[categoryId].map((report, idx) => (
         <div key={idx} className="card">
           <div className="card-body">
             <h5 className="card-title mb-2 text-muted">
@@ -46,10 +44,10 @@ class List extends Component {
       <div className="ExperienceReportList">
         <h1>Erfahrungsberichte</h1>
 
-        <Categories active={this.props.categoryId}/>
+        <Categories active={categoryId}/>
 
         <div id='reportList'>
-          { this.props.isFetching
+          { isFetching
             && <div className='loading'/>
           }
           {reportList}

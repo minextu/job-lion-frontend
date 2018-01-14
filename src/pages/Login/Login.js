@@ -15,17 +15,20 @@ class Login extends Component {
   }
 
   handleSubmit(e) {
+    const { email, password } = this.state;
     this.props.dispatch(
-      login(this.state.email, this.state.password)
+      login(email, password)
     );
     e.preventDefault();
   }
 
   render() {
+    const { loggedIn, errorCode } = this.props;
+
     return (
       <div className="Anmeldung">
-        <AlertBox loggedIn={this.props.loggedIn} errorCode={this.props.errorCode}/>
-        <form action='#' onSubmit={this.handleSubmit}>
+        <AlertBox loggedIn={loggedIn} errorCode={errorCode}/>
+        <form onSubmit={this.handleSubmit}>
 
           <label htmlFor="email">Email</label>
           <input required="required" type="email" id="email"

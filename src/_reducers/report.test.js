@@ -93,3 +93,72 @@ test('RECEIVE_REPORT action changes state', () => {
     Reducer(stateBefore, action)
   ).toEqual(stateAfter);
 });
+
+test('REQUEST_REPORT_FAILURE action changes state', () => {
+  const action = {
+    type: 'REQUEST_REPORT_FAILURE',
+    errorCode: 'testError'
+  };
+  const stateBefore = {
+
+  };
+  const stateAfter = {
+    errorCode: 'testError',
+    isFetching: false
+  };
+
+  expect(
+    Reducer(stateBefore, action)
+  ).toEqual(stateAfter);
+});
+
+test('REQUEST_CREATE_REPORT action changes state', () => {
+  const action = {
+    type: 'REQUEST_CREATE_REPORT'
+  };
+  const stateBefore = {
+
+  };
+  const stateAfter = {
+    isCreating: true,
+    errorCodeCreate: null
+  };
+
+  expect(
+    Reducer(stateBefore, action)
+  ).toEqual(stateAfter);
+});
+
+test('CREATE_REPORT_SUCCESS action changes state', () => {
+  const action = {
+    type: 'CREATE_REPORT_SUCCESS',
+  };
+  const stateBefore = {
+    isCreating: true,
+  };
+  const stateAfter = {
+    isCreating: false,
+  };
+
+  expect(
+    Reducer(stateBefore, action)
+  ).toEqual(stateAfter);
+});
+
+test('CREATE_REPORT_FAILURE action changes state', () => {
+  const action = {
+    type: 'CREATE_REPORT_FAILURE',
+    errorCode: 'testError'
+  };
+  const stateBefore = {
+
+  };
+  const stateAfter = {
+    errorCodeCreate: 'testError',
+    isCreating: false
+  };
+
+  expect(
+    Reducer(stateBefore, action)
+  ).toEqual(stateAfter);
+});

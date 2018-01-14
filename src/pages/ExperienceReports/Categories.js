@@ -4,21 +4,20 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './Categories.css';
-import { requestCategories } from '../../_actions/category';
+import { fetchCategoriesIfNeeded } from '../../_actions/category';
 
 class Categories extends Component {
-  // fetch categories if not cached
   componentDidMount() {
-    if (this.props.categories.length === 0) {
-      this.props.dispatch(
-        requestCategories()
-      );
-    }
+    this.props.dispatch(
+      fetchCategoriesIfNeeded()
+    );
   }
 
   render() {
-    const categories = this.props.categories.map((category, idx) => {
-      let itemClass = category.id === this.props.active ? "nav-item active" : "nav-item";
+    const { active, categories, isFetching } = this.props;
+
+    const categoriesHtml = categories.map((category, idx) => {
+      let itemClass = category.id === active ? "nav-item active" : "nav-item";
 
       return (
         <li className={itemClass} key={idx}>
@@ -30,11 +29,11 @@ class Categories extends Component {
     return (
       <nav className="navbar navbar-expand-sm navbar-light bg-jb-orange">
         <span className="navbar-brand">Kategorien</span>
-        { this.props.isFetching
+        { isFetching
           && <span className='inline-loading'/>
         }
         <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-          {categories}
+          {categoriesHtml}
         </ul>
       </nav>
     );

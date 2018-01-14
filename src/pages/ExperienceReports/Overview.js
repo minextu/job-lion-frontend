@@ -1,28 +1,14 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import Categories from './Categories';
+import AddReport from './AddReport';
 
-class Overview extends Component {
-  render() {
-    return (
-      <div className="ExperienceReportOverview">
-        <h1>Erfahrungsberichte</h1>
+const Overview = () => (
+  <div className="ExperienceReportOverview">
+    <h1>Erfahrungsberichte</h1>
 
-        <Categories/>
-
-        <h3>Hinzufügen</h3>
-        <form action="">
-          <label htmlFor="titel">Titel</label>
-          <input type="text" id="titel" name="titel" placeholder="Titel hinzufügen..." /><br/>
-          <label htmlFor="categories">Kategorien</label>
-          <br/><Link to="/Kategorien">Kategorie hinzufügen</Link><br/>
-          <label htmlFor="text">Erfahrungsbericht</label><br/>
-          <textarea name="text" rows="10" cols="100"></textarea>
-          <input type="submit" value="Hinzufügen" />
-        </form>
-      </div>
-    );
-  }
-}
+    <Categories/>
+    <AddReport/>
+  </div>
+);
 
 export default Overview;

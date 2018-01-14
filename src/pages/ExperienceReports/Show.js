@@ -2,29 +2,27 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { requestReport } from '../../_actions/report';
+import { fetchReportIfNeeded } from '../../_actions/report';
 
 class Show extends Component {
   componentDidMount() {
-    // fetch report if not cached
-    if (!this.props.reports[this.props.reportId]) {
-      this.props.dispatch(
-        requestReport(this.props.reportId)
-      );
-    }
+    this.props.dispatch(
+      fetchReportIfNeeded(this.props.reportId)
+    );
   }
 
   render() {
-    const info = this.props.reports[this.props.reportId];
+    const { reports, reportId, isFetching, errorCode } = this.props;
+    const info = reports[reportId];
 
     let infoHtml = null;
-    if (this.props.isFetching || !info) {
+    if (isFetching || !info) {
       infoHtml = <div className='loading'/>;
     }
-    else if (this.props.errorCode) {
+    else if (errorCode) {
       infoHtml = (
         <div className="alert alert-danger" role="alert">
-          {this.props.errorCode}
+          {errorCode}
         </div>
       );
     }
