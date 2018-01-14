@@ -8,28 +8,32 @@ const defaultState = {
 export default function loginReducer(state = defaultState, action) {
   switch (action.type) {
   case 'REQUEST_LOGIN_TOKEN':
-    return Object.assign({}, state, {
+    return {
+      ...state,
       isFetching: true,
       loggedIn: false,
       token: null,
       errorCode: null
-    });
+    };
   case 'RECEIVE_LOGIN_TOKEN':
-    return Object.assign({}, state, {
+    return {
+      ...state,
       isFetching: false,
       loggedIn: true,
       token: action.token
-    });
+    };
   case 'REQUEST_LOGIN_TOKEN_FAILURE':
-    return Object.assign({}, state, {
+    return {
+      ...state,
       isFetching: false,
       errorCode: action.errorCode
-    });
+    };
   case 'LOGOUT':
-    return Object.assign({}, state, {
+    return {
+      ...state,
       loggedIn: false,
       token: null
-    });
+    };
   default:
     return state;
   }

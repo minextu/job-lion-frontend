@@ -7,21 +7,23 @@ const defaultState = {
 export default function categoryReducer(state = defaultState, action) {
   switch (action.type) {
   case 'REQUEST_CATEGORIES':
-    return Object.assign({}, state, {
+    return {
+      ...state,
       isFetching: true,
-      categories: [],
-      errorCode: null
-    });
+      categories: [], errorCode: null
+    };
   case 'RECEIVE_CATEGORIES':
-    return Object.assign({}, state, {
+    return {
+      ...state,
       isFetching: false,
       categories: action.categories
-    });
+    };
   case 'REQUEST_CATEGORIES_FAILURE':
-    return Object.assign({}, state, {
+    return {
+      ...state,
       isFetching: false,
       errorCode: action.errorCode
-    });
+    };
   default:
     return state;
   }
