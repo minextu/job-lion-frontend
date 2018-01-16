@@ -10,7 +10,9 @@ test('REQUEST_REPORTS action changes state', () => {
   };
   const stateAfter = {
     isFetching: true,
-    reportsByCategory: { 1: [] },
+    reportList: [],
+    reportOffset: null,
+    fetchedCategories: [],
     errorCode: null
   };
 
@@ -22,15 +24,20 @@ test('REQUEST_REPORTS action changes state', () => {
 test('RECEIVE_REPORTS action changes state', () => {
   const action = {
     type: 'RECEIVE_REPORTS',
-    categoryId: 1,
-    reports: [{ id: 0, name: "test" }]
+    categoryIds: [1],
+    reports: [{ id: 0, name: "test" }],
+    total: 2,
+    offset: 3
   };
   const stateBefore = {
 
   };
   const stateAfter = {
     isFetching: false,
-    reportsByCategory: { 1: [{ id: 0, name: "test" }] }
+    reportList: [{ id: 0, name: "test" }],
+    reportListTotal: 2,
+    reportOffset: 3,
+    fetchedCategories: [1]
   };
 
   expect(
@@ -156,6 +163,23 @@ test('CREATE_REPORT_FAILURE action changes state', () => {
   const stateAfter = {
     errorCodeCreate: 'testError',
     isCreating: false
+  };
+
+  expect(
+    Reducer(stateBefore, action)
+  ).toEqual(stateAfter);
+});
+
+test('SELECT_CATEGORIES action changes state', () => {
+  const action = {
+    type: 'SELECT_CATEGORIES',
+    categories: [0, 1]
+  };
+  const stateBefore = {
+
+  };
+  const stateAfter = {
+    selectedCategories: [0, 1]
   };
 
   expect(

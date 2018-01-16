@@ -1,12 +1,17 @@
 import api from '../ApiClient';
 
-export function fetchReportsIfNeeded(jobCategoryId) {
+export function fetchReportsIfNeeded(jobCategoryIds, limit = 10, page = 1) {
   return (dispatch, getState) => {
     const state = getState().report;
-    const reports = state.reportsByCategory[jobCategoryId];
+    const reports = state.reportList;
+    const offset = (page - 1) * limit;
 
-    if (!reports && !state.isFetching) {
-      dispatch(_sendReportsRequest(jobCategoryId));
+    // check if reports for these categories where already fetched
+    if ((reports.length === 0
+        || state.fetchedCategories.sort().join(',') !== jobCategoryIds.sort().join(',')
+        || state.reportOffset !== offset)
+        && !state.isFetching) {
+      dispatch(_sendReportsRequest(jobCategoryIds, limit, offset));
     }
   };
 }
@@ -31,18 +36,27 @@ export function createReport(title, text) {
   };
 }
 
-function _receiveReports(reports, categoryId) {
+export function selectCategories(categories) {
+  return {
+    type: 'SELECT_CATEGORIES',
+    categories,
+  };
+}
+
+function _receiveReports(reports, categoryIds, total, offset) {
   return {
     type: 'RECEIVE_REPORTS',
-    categoryId,
+    categoryIds,
+    total,
+    offset,
     reports
   };
 }
 
-function _requestReports(categoryId) {
+function _requestReports(categoryIds) {
   return {
     type: 'REQUEST_REPORTS',
-    categoryId
+    categoryIds
   };
 }
 
@@ -53,17 +67,23 @@ function _receiveReportsFailure(errorCode) {
   };
 }
 
-function _sendReportsRequest(categoryId) {
+function _sendReportsRequest(categoryIds, limit, offset) {
   return function (dispatch) {
-    dispatch(_requestReports(categoryId));
+    dispatch(_requestReports(categoryIds));
 
-    return api.get(`v1/experienceReports/?limit=10&jobCategoryId=${categoryId}`)
+    let parameters = { limit: limit, offset: offset };
+    // append selected categories
+    if (categoryIds.length !== 0) {
+      parameters.jobCategoryIds = categoryIds.toString();
+    }
+
+    return api.get(`v1/experienceReports/`, parameters)
       .then(json => {
         if (json.error) {
           dispatch(_receiveReportsFailure(json.error));
         }
         else {
-          dispatch(_receiveReports(json, categoryId));
+          dispatch(_receiveReports(json.reports, categoryIds, Number(json.total), offset));
         }
       });
   };

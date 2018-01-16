@@ -8,35 +8,97 @@ import { fetchReportsIfNeeded } from '../../_actions/report';
 import './List.css';
 
 class List extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { page: 1, limit: 10 };
+  }
+
   componentDidMount() {
+    const { selectedCategories } = this.props;
+    const { limit, page } = this.state;
+
     this.props.dispatch(
-      fetchReportsIfNeeded(this.props.categoryId)
+      fetchReportsIfNeeded(selectedCategories, limit, page)
     );
   }
 
-  componentDidUpdate(prevProps) {
-    // request reports if a new category was selected
-    if (this.props.categoryId !== prevProps.categoryId) {
+  componentDidUpdate(prevProps, prevState) {
+    // fetch reports if category or page selection changed
+    const { selectedCategories } = this.props;
+    const { limit, page } = this.state;
+
+    if (prevProps.selectedCategories !== selectedCategories
+    || prevState.page !== this.state.page) {
+      // reset to page 1 if categories changed
+      if (prevProps.selectedCategories !== selectedCategories) {
+        this.setState({ page: 1 });
+      }
+
       this.props.dispatch(
-        fetchReportsIfNeeded(this.props.categoryId)
+        fetchReportsIfNeeded(selectedCategories, limit, page)
       );
     }
   }
 
-  render() {
-    const { reports, categoryId, isFetching } = this.props;
-    let reportList = null;
+  renderPagination() {
+    const { limit, page } = this.state;
+    const { reportTotal } = this.props;
 
-    if (reports[categoryId]) {
-      reportList = reports[categoryId].map((report, idx) => (
-        <div key={idx} className="card">
-          <div className="card-body">
-            <h5 className="card-title mb-2 text-muted">
-              <Link to={"/Erfahrungsbericht/" + report.id}>{report.title}</Link>
-            </h5>
-            <p className="card-text">{report.text}</p>
+    const maxPage = Math.ceil(reportTotal / limit);
+
+    // generate page list
+    const pageNumbers = [];
+    for (let i = 1; i <= maxPage; i++) {
+      pageNumbers.push(i);
+    }
+
+    return (
+      <nav aria-label="Page navigation example">
+        <ul className="pagination">
+
+          <li className={page - 1 < 1 ? "page-item disabled" : "pageItem"}>
+            <button className="page-link" onClick={() => this.setState({ page: page - 1 })}>Zurück</button>
+          </li>
+
+          { pageNumbers.map(p => (
+            <li key={p} className={page === p ? "page-item active" : "page-item"}>
+              <button className="page-link" onClick={() => this.setState({ page: p })}>{p}</button>
+            </li>
+          ))}
+
+          <li className={page + 1 > maxPage ? "page-item disabled" : "pageItem"}>
+            <button className="page-link" onClick={() => this.setState({ page: page + 1 })}>Weiter</button>
+          </li>
+        </ul>
+      </nav>
+    );
+  }
+
+  render() {
+    const { reports, isFetching } = this.props;
+    let reportEntries = null;
+
+    if (reports) {
+      reportEntries = reports.map((report, idx) => (
+        <li key={idx} className="list-group-item">
+          <Link to={"/Erfahrungsbericht/" + report.id}>
+            {report.title}
+          </Link>
+
+          <span className="float-right">
+            {new Date(report.created).toLocaleString()}
+          </span>
+
+          <ul>
+            { report.jobCategories.map((category, idx) => (
+              <li key={idx}>{category.name}</li>
+            )
+            )}
+          </ul>
+          <div style={{ marginTop: 10 + "px" }}>
+            {report.user.firstName} {report.user.lastName}
           </div>
-        </div>
+        </li>
       ));
     }
 
@@ -44,13 +106,28 @@ class List extends Component {
       <div className="ExperienceReportList">
         <h1>Erfahrungsberichte</h1>
 
-        <Categories active={categoryId}/>
+        <div id='reportList' className="container-fluid">
+          <div className="row">
+            <div className="col">
+              <Categories />
+            </div>
+            <div className="col-10">
 
-        <div id='reportList'>
-          { isFetching
-            && <div className='loading'/>
-          }
-          {reportList}
+              <Link to='/Erfahrungsberichte/Neu' className="btn btn-primary float-right">
+                Hinzufügen
+              </Link>
+
+              {this.renderPagination()}
+              { isFetching
+                && <div className='loading'/>
+              }
+
+              <ul className="list-group">
+                {reportEntries}
+              </ul>
+
+            </div>
+          </div>
         </div>
 
       </div>
@@ -59,17 +136,19 @@ class List extends Component {
 }
 
 List.propTypes = {
-  categoryId: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  reports: PropTypes.object.isRequired
+  reports: PropTypes.array.isRequired,
+  reportTotal: PropTypes.number,
+  selectedCategories: PropTypes.array.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
-    reports: state.report.reportsByCategory,
-    isFetching: state.report.isFetching,
-    categoryId: Number(ownProps.match.params.categoryId)
+    reports: state.report.reportList,
+    reportTotal: state.report.reportListTotal,
+    selectedCategories: state.report.selectedCategories,
+    isFetching: state.report.isFetching
   };
 };
 

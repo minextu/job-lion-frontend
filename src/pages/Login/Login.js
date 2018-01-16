@@ -27,22 +27,23 @@ class Login extends Component {
 
     return (
       <div className="Anmeldung">
+        <h1>Anmelden</h1>
         <AlertBox loggedIn={loggedIn} errorCode={errorCode}/>
         <form onSubmit={this.handleSubmit}>
 
           <label htmlFor="email">Email</label>
-          <input required="required" type="email" id="email"
+          <input className="jb-input" required="required" type="email" id="email"
             placeholder="Deine E-Mail Adresse..."
             onChange={(e) => this.setState({ email: e.target.value })}
           />
 
           <label htmlFor="passwort">Passwort</label>
-          <input required="required" type="password" id="passwort"
+          <input className="jb-input" required="required" type="password" id="passwort"
             placeholder="Dein Passwort..."
             onChange={(e) => this.setState({ password: e.target.value })}
           />
 
-          <input type="submit" value="Anmelden" />
+          <input className="jb-input" type="submit" value="Anmelden" />
         </form>
         <span>
           <Link to="/Registrieren">Registrieren</Link>

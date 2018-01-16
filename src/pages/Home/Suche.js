@@ -6,12 +6,12 @@ class Suche extends Component {
     return (
       <div id="suche">
         <form action="">
-          <select id="Erfahrungen" name="Erfahrungen">
+          <select className='jb-select'>
             <option value="Beispiel 1">Beispiel 1</option>
             <option value="Beispiel 2">Beispiel 2</option>
             <option value="Beispiel 3">Beispiel 3</option>
           </select>
-          <input type="submit" value="Nach Erfahrungen suchen" />
+          <input className="jb-input" type="submit" value="Nach Erfahrungen suchen" />
         </form>
       </div>
     );

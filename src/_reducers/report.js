@@ -1,8 +1,12 @@
 const defaultState = {
   isFetching: false,
   isCreating: false,
-  reportsByCategory: {},
+  reportList: [],
+  reportListTotal: null,
   reports: {},
+  selectedCategories: [],
+  fetchedCategories: [],
+  reportOffset: null,
   errorCode: null,
   errorCodeCreate: null
 };
@@ -13,20 +17,19 @@ export default function reportReducer(state = defaultState, action) {
     return {
       ...state,
       isFetching: true,
-      reportsByCategory: {
-        ...state.reportsByCategory,
-        [action.categoryId]: []
-      },
+      reportList: [],
+      reportOffset: null,
+      fetchedCategories: [],
       errorCode: null
     };
   case 'RECEIVE_REPORTS':
     return {
       ...state,
       isFetching: false,
-      reportsByCategory: {
-        ...state.reportsByCategory,
-        [action.categoryId]: action.reports
-      }
+      fetchedCategories: action.categoryIds,
+      reportList: action.reports,
+      reportListTotal: action.total,
+      reportOffset: action.offset
     };
   case 'REQUEST_REPORTS_FAILURE':
     return {
@@ -76,6 +79,11 @@ export default function reportReducer(state = defaultState, action) {
       ...state,
       isCreating: false,
       errorCodeCreate: action.errorCode
+    };
+  case 'SELECT_CATEGORIES':
+    return {
+      ...state,
+      selectedCategories: action.categories
     };
   default:
     return state;

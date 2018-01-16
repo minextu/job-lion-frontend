@@ -26,7 +26,7 @@ class AddReport extends Component {
 
     return (
       <div id='AddReport'>
-        <h3>Hinzufügen</h3>
+        <h1>Erfahrungsbericht Hinzufügen</h1>
 
         { isCreating
           && <span className='inline-loading'/>
@@ -41,6 +41,7 @@ class AddReport extends Component {
           <input
             type="text"
             id="title"
+            className="jb-input"
             placeholder="Titel hinzufügen..."
             onChange={(e) => this.setState({ title: e.target.value })}
           />
@@ -55,7 +56,7 @@ class AddReport extends Component {
             cols="100"
             onChange={(e) => this.setState({ text: e.target.value })}
           ></textarea>
-          <input type="submit" value="Hinzufügen" />
+          <input className="jb-input" type="submit" value="Hinzufügen" />
         </form>
       </div>
     );

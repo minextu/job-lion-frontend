@@ -7,9 +7,9 @@ class Kategorien extends Component {
         <form action="">
 
           <label htmlFor="kategorie">Kategorie hinzufügen</label>
-          <input type="text" id="kategorie" name="kategorie" placeholder="Kategorie hinzufügen..." />
+          <input className="jb-input" type="text" id="kategorie" placeholder="Kategorie hinzufügen..." />
 
-          <input type="submit" value="Kategorie hinzufügen" />
+          <input className="jb-input" type="submit" value="Kategorie hinzufügen" />
         </form>
       </div>
     );

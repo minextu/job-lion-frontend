@@ -1,3 +1,7 @@
+h1 {
+	margin-bottom: 48px;
+}
+
 h3 {
 	font-size: 1.5em;
 }
@@ -13,7 +17,7 @@ html, body, #root {
 	min-height: 100%;
 }
 
-input[type=submit] {
+.jb-input[type=submit] {
     width: 100%;
     background-color: #ff9933;
     color: white;
@@ -24,11 +28,11 @@ input[type=submit] {
     cursor: pointer;
 }
 
-input[type=submit]:hover {
+.jb-input[type=submit]:hover {
     background-color: #cc6600;
 }
 
-input[type=text], input[type=password], input[type=email], select {
+.jb-input[type=text], .jb-input[type=password], .jb-input[type=email], .jb-select {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;

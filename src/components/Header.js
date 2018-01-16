@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import FontAwesome from 'react-fontawesome';
 import { connect } from 'react-redux';
 import './Header.css';
 
@@ -15,11 +16,11 @@ class Header extends Component {
         { title: "Impressum", path: "/Impressum" }
       ],
       loginLinks: [
-        { title: "Anmelden", path: "/Anmelden" }
+        { title: "Anmelden", path: "/Anmelden", icon: "sign-in" }
       ],
       loggedInLinks: [
-        { title: "Einstellungen", path: "/Einstellungen" },
-        { title: "Abmelden", path: "/Abmelden" }
+        { title: "Einstellungen", path: "/Einstellungen", icon: "cog" },
+        { title: "Abmelden", path: "/Abmelden", icon: "sign-out" }
       ]
     };
   }
@@ -51,7 +52,13 @@ class Header extends Component {
 
               {rightNavLinks.map((link, idx) => (
                 <li key={idx} data-toggle="collapse" data-target=".navbar-collapse.show">
-                  <Link className="nav-item nav-link" to={link.path}>{link.title}</Link>
+                  <Link className="nav-item nav-link" to={link.path}>
+                    { link.icon
+                      && <FontAwesome name={link.icon}/>
+                    }
+                    &nbsp;
+                    {link.title}
+                  </Link>
                 </li>
               ))}
 
