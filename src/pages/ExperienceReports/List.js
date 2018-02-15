@@ -119,7 +119,7 @@ class List extends Component {
                 && <div className='loading'/>
                 }
                 <div id='reportAddBtn'>
-                  <Link to='/Erfahrungsberichte/Neu' className="float-right btn btn-primary">
+                  <Link to='/Erfahrungsberichte/Neu' className="btn btn-primary">
                     Hinzufügen
                   </Link>
                 </div>

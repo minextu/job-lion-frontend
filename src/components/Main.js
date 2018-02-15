@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './Main.css';
 
 import Home from '../pages/Home/Home';
-import Kategorien from '../pages/Kategorien';
 import ExperienceReportAdd from '../pages/ExperienceReports/AddReport';
 import ExperienceReportList from '../pages/ExperienceReports/List';
 import ExperienceReportShow from '../pages/ExperienceReports/Show';
@@ -23,7 +22,6 @@ class Main extends Component {
 
         <Switch>
           <Route exact path='/' component={Home}/>
-          <Route exact path='/Kategorien' component={Kategorien}/>
           <Route exact path='/Erfahrungsberichte' component={ExperienceReportList}/>
           <Route exact path='/Erfahrungsberichte/Neu' component={ExperienceReportAdd}/>
           <Route exact path='/Erfahrungsbericht/:reportId' component={ExperienceReportShow}/>

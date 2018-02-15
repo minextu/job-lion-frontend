@@ -1,4 +1,5 @@
 import api from '../ApiClient';
+import history from '../history';
 
 export function fetchReportsIfNeeded(jobCategoryIds, limit = 10, page = 1) {
   return (dispatch, getState) => {
@@ -27,11 +28,11 @@ export function fetchReportIfNeeded(reportId) {
   };
 }
 
-export function createReport(title, text) {
+export function createReport(title, text, categoryIds) {
   return (dispatch, getState) => {
     const state = getState().report;
     if (!state.isCreating) {
-      dispatch(_sendCreateReportRequest(title, text));
+      dispatch(_sendCreateReportRequest(title, text, categoryIds));
     }
   };
 }
@@ -127,7 +128,8 @@ function _sendReportRequest(reportId) {
   };
 }
 
-function _createReportSuccess() {
+function _createReportSuccess(id) {
+  history.push('/Erfahrungsbericht/' + id);
   return {
     type: 'CREATE_REPORT_SUCCESS',
   };
@@ -146,17 +148,17 @@ function _createReportFailure(errorCode) {
   };
 }
 
-function _sendCreateReportRequest(title, text) {
+function _sendCreateReportRequest(title, text, jobCategoryIds) {
   return function (dispatch) {
     dispatch(_requestCreateReport());
 
-    return api.post(`v1/experienceReports/`, { title, text }, true)
+    return api.post(`v1/experienceReports/`, { title, text, jobCategoryIds }, true)
       .then(json => {
         if (json.error) {
           dispatch(_createReportFailure(json.error));
         }
         else {
-          dispatch(_createReportSuccess());
+          dispatch(_createReportSuccess(json.id));
         }
       });
   };

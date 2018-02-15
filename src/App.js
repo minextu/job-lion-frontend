@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
+import history from './history';
 
 import Header from './components/Header';
 import Main from './components/Main';
@@ -11,13 +12,13 @@ import 'font-awesome/css/font-awesome.min.css';
 import './index.css';
 
 const App = () => (
-  <BrowserRouter>
+  <Router history={history}>
     <div id='App'>
       <Header />
       <Main />
       <Footer />
     </div>
-  </BrowserRouter>
+  </Router>
 );
 
 export default App;

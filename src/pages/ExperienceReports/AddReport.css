@@ -1,0 +1,7 @@
+.categorySelect {
+  flex-grow: 1;
+}
+
+.categorySelect .Select-control {
+  height: 34px;
+}

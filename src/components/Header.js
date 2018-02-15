@@ -11,7 +11,6 @@ class Header extends Component {
 
     this.state = {
       navLinks: [
-        { title: "Kategorien", path: "/Kategorien" },
         { title: "Erfahrungsberichte", path: "/Erfahrungsberichte" },
         { title: "Impressum", path: "/Impressum" }
       ],
