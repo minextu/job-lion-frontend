@@ -1,2 +1,7 @@
-#categoryList {
+#categoryRow {
+  margin-bottom: 20px;
+}
+
+#reportAddBtn {
+  margin-bottom: 10px;
 }

@@ -53,7 +53,7 @@ class List extends Component {
     }
 
     return (
-      <nav aria-label="Page navigation example">
+      <nav aria-label="Page">
         <ul className="pagination">
 
           <li className={page - 1 < 1 ? "page-item disabled" : "pageItem"}>
@@ -108,19 +108,23 @@ class List extends Component {
 
         <div id='reportList' className="container-fluid">
           <div className="row">
-            <div className="col">
+            <div className="col" id='categoryRow'>
               <Categories />
             </div>
             <div className="col-10">
 
-              <Link to='/Erfahrungsberichte/Neu' className="btn btn-primary float-right">
-                Hinzufügen
-              </Link>
-
-              {this.renderPagination()}
-              { isFetching
+              <div className='d-flex flex-wrap-reverse align-content-start justify-content-between'>
+                {this.renderPagination()}
+                { isFetching
                 && <div className='loading'/>
-              }
+                }
+                <div id='reportAddBtn'>
+                  <Link to='/Erfahrungsberichte/Neu' className="float-right btn btn-primary">
+                    Hinzufügen
+                  </Link>
+                </div>
+
+              </div>
 
               <ul className="list-group">
                 {reportEntries}
