@@ -50,6 +50,7 @@ class AddReport extends Component {
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="title">Titel</label>
           <input
+            required
             type="text"
             id="title"
             className="jb-input"
@@ -63,6 +64,7 @@ class AddReport extends Component {
           <div className='d-flex flex-wrap'>
 
             <Select.Creatable
+              required
               className="categorySelect"
               name="categories"
               value={selectedCategories}
@@ -84,6 +86,7 @@ class AddReport extends Component {
 
           <label htmlFor="text">Erfahrungsbericht</label><br/>
           <textarea
+            required
             name="text"
             rows="10"
             cols="100"
