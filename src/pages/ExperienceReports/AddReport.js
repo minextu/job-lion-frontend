@@ -52,7 +52,6 @@ class AddReport extends Component {
           <input
             required
             type="text"
-            id="title"
             className="jb-input"
             placeholder="Titel hinzufügen..."
             onChange={(e) => this.setState({ title: e.target.value })}

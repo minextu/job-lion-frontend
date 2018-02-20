@@ -37,8 +37,8 @@ class Login extends Component {
             onChange={(e) => this.setState({ email: e.target.value })}
           />
 
-          <label htmlFor="passwort">Passwort</label>
-          <input className="jb-input" required="required" type="password" id="passwort"
+          <label htmlFor="password">Passwort</label>
+          <input className="jb-input" required="required" type="password" id="password"
             placeholder="Dein Passwort..."
             onChange={(e) => this.setState({ password: e.target.value })}
           />
