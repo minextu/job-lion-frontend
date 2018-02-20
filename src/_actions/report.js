@@ -28,11 +28,11 @@ export function fetchReportIfNeeded(reportId) {
   };
 }
 
-export function createReport(title, text, categoryIds) {
+export function createReport(title, text, categories) {
   return (dispatch, getState) => {
     const state = getState().report;
     if (!state.isCreating) {
-      dispatch(_sendCreateReportRequest(title, text, categoryIds));
+      dispatch(_sendCreateReportRequest(title, text, categories));
     }
   };
 }
@@ -148,9 +148,31 @@ function _createReportFailure(errorCode) {
   };
 }
 
-function _sendCreateReportRequest(title, text, jobCategoryIds) {
-  return function (dispatch) {
+function _sendCreateReportRequest(title, text, categories) {
+  return async function (dispatch) {
     dispatch(_requestCreateReport());
+
+    let jobCategoryIds = [];
+    for (let key in categories) {
+      let category = categories[key];
+
+      // create this category if needed
+      if (category.create) {
+        await api.post(`v1/jobCategories/`, { name: category.value }, true)
+          .then(json => {
+            if (json.error) {
+              dispatch(_createReportFailure(json.error));
+            }
+            else {
+              jobCategoryIds.push(json.id);
+            }
+          });
+      }
+      // if it does already exist, just add it to the array
+      else {
+        jobCategoryIds.push(category.value);
+      }
+    }
 
     return api.post(`v1/experienceReports/`, { title, text, jobCategoryIds }, true)
       .then(json => {

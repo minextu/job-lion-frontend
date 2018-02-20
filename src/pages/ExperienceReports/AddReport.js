@@ -62,24 +62,23 @@ class AddReport extends Component {
 
           <div className='d-flex flex-wrap'>
 
-            <Select
+            <Select.Creatable
               className="categorySelect"
               name="categories"
               value={selectedCategories}
               multi={true}
-              simpleValue={true}
-              noResultsText="Keine Suchergebnisse"
+              newOptionCreator={(category) => ({ label: category.label, value: category.label, create: true })}
               clearAllText="Alle löschen"
               placeholder="Kategorien hinzufügen..."
+              promptTextCreator={(label) => (`Kategorie "${label}" hinzufügen`)}
               options={categories.map(category => {
                 return {
+                  create: false,
                   value: category.id,
                   label: category.name };
               })}
               onChange={(selectedCategories) => this.setState({ selectedCategories })}
             />
-
-            <button type="button" className="btn btn-primary">Neue Kategorie erstellen</button>
 
           </div>
 
