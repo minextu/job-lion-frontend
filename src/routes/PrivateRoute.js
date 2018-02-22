@@ -31,6 +31,7 @@ class PrivateRoute extends Component {
 PrivateRoute.propTypes = {
   dispatch: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired,
+  component: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => {
