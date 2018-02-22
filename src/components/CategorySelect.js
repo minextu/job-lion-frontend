@@ -53,7 +53,7 @@ class CategorySelect extends Component {
 
     // initial selected options (if any)
     let value = selectedCategories;
-    if (selected && selected.length > 0) {
+    if (selected) {
       value = selected.map(id => {
         return {
           create: false,
