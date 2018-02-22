@@ -58,14 +58,13 @@ class CategorySelect extends Component {
         return {
           create: false,
           value: id,
-          label: categories.find(c => (c.id == id)).name
+          label: categories.find(c => (c.id === id)).name
         };
       });
     }
 
     return (
       <SelectComponent {...this.props} multi={true}
-        value={selectedCategories}
         newOptionCreator={(category) => ({ label: category.label, value: category.label, create: true })}
         isOptionUnique={this.isOptionUnique}
         options={categories.map(category => {
