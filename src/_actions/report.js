@@ -28,6 +28,15 @@ export function fetchReportIfNeeded(reportId) {
   };
 }
 
+export function showReportsByCategories(categoryIds) {
+  return dispatch => {
+    history.push('/Erfahrungsberichte');
+    dispatch(
+      selectCategories(categoryIds)
+    );
+  };
+}
+
 export function createReport(title, text, categories) {
   return (dispatch, getState) => {
     const state = getState().report;

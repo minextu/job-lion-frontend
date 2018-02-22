@@ -3,7 +3,7 @@ import netzwerk150 from './images/Netzwerk150.png';
 import austausch150 from './images/Austausch150.png';
 import lion150 from './images/Lion150.png';
 import './Home.css';
-import Suche from './Suche';
+import Search from './Search';
 
 class Home extends Component {
   render() {
@@ -12,7 +12,7 @@ class Home extends Component {
         <div className="parallax" />
         <div id ="leiste" />
 
-        <Suche />
+        <Search />
 
         <div className="container" id="bulletPoint">
           <div className="row">

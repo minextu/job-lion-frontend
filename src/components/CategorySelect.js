@@ -12,6 +12,7 @@ class CategorySelect extends Component {
     this.state = { selectedCategories: '' };
 
     this.onChange = this.onChange.bind(this);
+    this.isOptionUnique = this.isOptionUnique.bind(this);
   }
 
   componentDidMount() {
@@ -25,18 +26,48 @@ class CategorySelect extends Component {
     this.props.onChange(selectedCategories);
   }
 
+  isOptionUnique(o) {
+    const { categories } = this.props;
+
+    let value = o.option.value;
+    let options = categories.map(option => { return option.name.toLowerCase(); });
+
+    // don't allow empty categories
+    if (!value.trim()) {
+      return false;
+    }
+    // don't allow duplicates
+    if (options.indexOf(value.toLowerCase()) !== -1) {
+      return false;
+    }
+
+    return true;
+  }
+
   render() {
-    const { categories, isFetching } = this.props;
-    const { createable, required, disabled } = this.props;
+    const { categories, isFetching, createable, selected } = this.props;
     const { selectedCategories } = this.state;
 
     let SelectComponent = Select;
     if (createable) { SelectComponent = Select.Creatable; }
 
+    // initial selected options (if any)
+    let value = selectedCategories;
+    if (selected && selected.length > 0) {
+      value = selected.map(id => {
+        return {
+          create: false,
+          value: id,
+          label: categories.find(c => (c.id == id)).name
+        };
+      });
+    }
+
     return (
-      <SelectComponent required={required} multi={true} disabled={disabled}
+      <SelectComponent {...this.props} multi={true}
         value={selectedCategories}
         newOptionCreator={(category) => ({ label: category.label, value: category.label, create: true })}
+        isOptionUnique={this.isOptionUnique}
         options={categories.map(category => {
           return {
             create: false,
@@ -45,6 +76,7 @@ class CategorySelect extends Component {
         })}
         onChange={this.onChange}
         isLoading={isFetching}
+        value={value}
         clearAllText="Alle löschen"
         placeholder="Kategorien auswählen..."
         noResultsText="Keine Suchergebnisse"
@@ -61,9 +93,8 @@ CategorySelect.propTypes = {
   isFetching: PropTypes.bool.isRequired,
 
   onChange: PropTypes.func.isRequired,
-  required: PropTypes.bool,
-  disabled: PropTypes.bool,
-  createable: PropTypes.bool
+  createable: PropTypes.bool,
+  selected: PropTypes.array
 };
 
 const mapStateToProps = (state) => {

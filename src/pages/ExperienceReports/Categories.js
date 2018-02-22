@@ -8,7 +8,7 @@ import CategorySelect from '../../components/CategorySelect';
 class Categories extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeCategoryFilter: 'all', selectedCategories: [] };
+    this.state = { activeCategoryFilter: 'all' };
 
     this.handleCategoryFilterChange = this.handleCategoryFilterChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
@@ -16,9 +16,9 @@ class Categories extends Component {
 
   componentDidMount() {
     // reset categories
-    this.props.dispatch(
-      selectCategories([])
-    );
+    //this.props.dispatch(
+    //  selectCategories([])
+    //);
   }
 
   handleCategoryFilterChange(e) {
@@ -28,7 +28,7 @@ class Categories extends Component {
     });
 
     // send new categories action (empty array if all categories is selected)
-    const categories = e.target.value === "custom" ? this.state.selectedCategories : [];
+    const categories = e.target.value === "custom" ? this.props.selectedCategories : [];
     this.props.dispatch(
       selectCategories(categories)
     );
@@ -39,11 +39,6 @@ class Categories extends Component {
       return category.value;
     });
 
-    // save state
-    this.setState({
-      selectedCategories: newSelectedCategories
-    });
-
     // send new categories action
     this.props.dispatch(
       selectCategories(newSelectedCategories)
@@ -52,6 +47,7 @@ class Categories extends Component {
 
   renderCategoryFilter() {
     const { activeCategoryFilter } = this.state;
+    const { selectedCategories } = this.props;
 
     return (
       <div>
@@ -61,7 +57,7 @@ class Categories extends Component {
             type="radio"
             id="all_categories"
             value="all"
-            checked={activeCategoryFilter === "all"}
+            checked={activeCategoryFilter === "all" && selectedCategories.length === 0}
             onChange={this.handleCategoryFilterChange}
           />
           <label className="form-check-label" htmlFor="all_categories">
@@ -76,7 +72,7 @@ class Categories extends Component {
             type="radio"
             id="custom_categories"
             value="custom"
-            checked={activeCategoryFilter === "custom"}
+            checked={activeCategoryFilter === "custom" || selectedCategories.length !== 0}
             onChange={this.handleCategoryFilterChange}
           />
           <label className="form-check-label" htmlFor="custom_categories">
@@ -88,14 +84,18 @@ class Categories extends Component {
   }
 
   render() {
+    const { selectedCategories } = this.props;
+
     return (
       <div>
         <h3>Kategorien</h3>
         {this.renderCategoryFilter()}
         <div style={{ marginTop: 10 + 'px' }}>
           <CategorySelect
-            disabled={this.state.activeCategoryFilter === "all"}
-            onChange={this.handleCategoryChange}/>
+            disabled={this.state.activeCategoryFilter === "all" && selectedCategories.length === 0}
+            onChange={this.handleCategoryChange}
+            selected={selectedCategories}
+          />
         </div>
 
       </div>
@@ -106,6 +106,13 @@ class Categories extends Component {
 Categories.propTypes = {
   active: PropTypes.number,
   dispatch: PropTypes.func.isRequired,
+  selectedCategories: PropTypes.array.isRequired
 };
 
-export default connect()(Categories);
+const mapStateToProps = (state) => {
+  return {
+    selectedCategories: state.report.selectedCategories
+  };
+};
+
+export default connect(mapStateToProps)(Categories);

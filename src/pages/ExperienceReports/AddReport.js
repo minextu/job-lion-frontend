@@ -38,26 +38,22 @@ class AddReport extends Component {
 
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="title">Titel</label>
-          <input
-            required
-            type="text"
+          <input id='title' required type="text"
             className="jb-input"
             placeholder="Titel hinzufügen..."
             onChange={(e) => this.setState({ title: e.target.value })}
           />
           <br/>
 
-          <label>Kategorien</label>
+          <label htmlFor='categories'>Kategorien</label>
 
-          <CategorySelect required createable
+          <CategorySelect required createable id='categories'
             onChange={(selectedCategories) => this.setState({ selectedCategories })}
           />
           <br/>
 
           <label htmlFor="text">Erfahrungsbericht</label><br/>
-          <textarea className="jb-input"
-            required
-            name="text"
+          <textarea className="jb-input" required id="text"
             rows="10"
             onChange={(e) => this.setState({ text: e.target.value })}
           ></textarea>
