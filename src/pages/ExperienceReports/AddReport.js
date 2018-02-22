@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Select from 'react-select';
-import 'react-select/dist/react-select.css';
 
 import './AddReport.css';
 import { fetchCategoriesIfNeeded } from '../../_actions/category';
@@ -58,37 +57,33 @@ class AddReport extends Component {
           />
           <br/>
 
-          <label htmlFor="categories">Kategorien</label>
+          <label>Kategorien</label>
 
-          <div className='d-flex flex-wrap'>
-
-            <Select.Creatable
-              required
-              className="categorySelect"
-              name="categories"
-              value={selectedCategories}
-              multi={true}
-              newOptionCreator={(category) => ({ label: category.label, value: category.label, create: true })}
-              clearAllText="Alle löschen"
-              placeholder="Kategorien hinzufügen..."
-              promptTextCreator={(label) => (`Kategorie "${label}" hinzufügen`)}
-              options={categories.map(category => {
-                return {
-                  create: false,
-                  value: category.id,
-                  label: category.name };
-              })}
-              onChange={(selectedCategories) => this.setState({ selectedCategories })}
-            />
-
-          </div>
+          <Select.Creatable
+            required
+            className="categorySelect"
+            name="categories"
+            value={selectedCategories}
+            multi={true}
+            newOptionCreator={(category) => ({ label: category.label, value: category.label, create: true })}
+            clearAllText="Alle löschen"
+            placeholder="Kategorien hinzufügen..."
+            promptTextCreator={(label) => (`Kategorie "${label}" hinzufügen`)}
+            options={categories.map(category => {
+              return {
+                create: false,
+                value: category.id,
+                label: category.name };
+            })}
+            onChange={(selectedCategories) => this.setState({ selectedCategories })}
+          />
+          <br/>
 
           <label htmlFor="text">Erfahrungsbericht</label><br/>
-          <textarea
+          <textarea className="jb-input"
             required
             name="text"
             rows="10"
-            cols="100"
             onChange={(e) => this.setState({ text: e.target.value })}
           ></textarea>
           <input className="jb-input" type="submit" value="Hinzufügen" />

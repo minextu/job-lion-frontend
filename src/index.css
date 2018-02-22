@@ -32,14 +32,20 @@ html, body, #root {
     background-color: #cc6600;
 }
 
-.jb-input[type=text], .jb-input[type=password], .jb-input[type=email], .jb-select {
+.jb-input, .jb-select {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
+		background-color: #fff;
+		color: black;
     border-radius: 4px;
     box-sizing: border-box;
+}
+
+.jb-input:invalid {
+	box-shadow: none;
 }
 
 .loading, .inline-loading {
