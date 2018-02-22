@@ -2,7 +2,8 @@ const defaultState = {
   isFetching: false,
   loggedIn: !!localStorage.getItem('loginToken'),
   token: localStorage.getItem('loginToken') ? localStorage.getItem('loginToken') : null,
-  errorCode: null
+  errorCode: null,
+  redirectUrl: null
 };
 
 export default function loginReducer(state = defaultState, action) {
@@ -33,6 +34,11 @@ export default function loginReducer(state = defaultState, action) {
       ...state,
       loggedIn: false,
       token: null
+    };
+  case 'SET_LOGIN_REDIRECT_URL':
+    return {
+      ...state,
+      redirectUrl: action.redirectUrl
     };
   default:
     return state;

@@ -77,3 +77,21 @@ test('LOGOUT action changes state', () => {
     Reducer(stateBefore, action)
   ).toEqual(stateAfter);
 });
+
+test('SET_LOGIN_REDIRECT_URL action changes state', () => {
+  const action = {
+    type: 'SET_LOGIN_REDIRECT_URL',
+    redirectUrl: 'testUrl'
+  };
+
+  const stateBefore = {
+  };
+
+  const stateAfter = {
+    redirectUrl: 'testUrl'
+  };
+
+  expect(
+    Reducer(stateBefore, action)
+  ).toEqual(stateAfter);
+});

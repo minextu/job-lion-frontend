@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import AlertBox from './AlertBox';
 import { login } from '../../_actions/login';
+import history from '../../history';
 
 class Login extends Component {
   constructor(props) {
@@ -22,12 +23,22 @@ class Login extends Component {
     e.preventDefault();
   }
 
+  componentWillReceiveProps(nextProps) {
+    // redirect to start if logged in
+    if (nextProps.loggedIn) {
+      history.push('/');
+    }
+  }
+
   render() {
-    const { loggedIn, errorCode } = this.props;
+    const { loggedIn, isPrompt, errorCode } = this.props;
 
     return (
       <div className="Anmeldung">
         <h1>Anmelden</h1>
+        { isPrompt
+          && <div className="alert alert-warning">Login benötigt</div>
+        }
         <AlertBox loggedIn={loggedIn} errorCode={errorCode}/>
         <form onSubmit={this.handleSubmit}>
 
@@ -57,6 +68,7 @@ class Login extends Component {
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired,
+  isPrompt: PropTypes.bool,
   errorCode: PropTypes.string
 };
 
