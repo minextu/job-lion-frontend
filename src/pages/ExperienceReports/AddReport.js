@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Select from 'react-select';
-
-import './AddReport.css';
-import { fetchCategoriesIfNeeded } from '../../_actions/category';
+import CategorySelect from '../../components/CategorySelect';
 import { createReport } from '../../_actions/report';
 
 class AddReport extends Component {
@@ -14,12 +11,6 @@ class AddReport extends Component {
     this.state = { title: '', text: '', selectedCategories: '' };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.dispatch(
-      fetchCategoriesIfNeeded()
-    );
   }
 
   handleSubmit(e) {
@@ -31,8 +22,7 @@ class AddReport extends Component {
   }
 
   render() {
-    const { isCreating, errorCode, categories } = this.props;
-    const { selectedCategories } = this.state;
+    const { isCreating, errorCode } = this.props;
 
     return (
       <div id='AddReport'>
@@ -59,22 +49,8 @@ class AddReport extends Component {
 
           <label>Kategorien</label>
 
-          <Select.Creatable
+          <CategorySelect
             required
-            className="categorySelect"
-            name="categories"
-            value={selectedCategories}
-            multi={true}
-            newOptionCreator={(category) => ({ label: category.label, value: category.label, create: true })}
-            clearAllText="Alle löschen"
-            placeholder="Kategorien hinzufügen..."
-            promptTextCreator={(label) => (`Kategorie "${label}" hinzufügen`)}
-            options={categories.map(category => {
-              return {
-                create: false,
-                value: category.id,
-                label: category.name };
-            })}
             onChange={(selectedCategories) => this.setState({ selectedCategories })}
           />
           <br/>
@@ -97,14 +73,12 @@ AddReport.propTypes = {
   dispatch: PropTypes.func.isRequired,
   errorCode: PropTypes.string,
   isCreating: PropTypes.bool.isRequired,
-  categories: PropTypes.array.isRequired
 };
 
 const mapStateToProps = (state) => {
   return {
     errorCode: state.report.errorCodeCreate,
     isCreating: state.report.isCreating,
-    categories: state.category.categories,
   };
 };
 
