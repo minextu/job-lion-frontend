@@ -49,8 +49,7 @@ class AddReport extends Component {
 
           <label>Kategorien</label>
 
-          <CategorySelect
-            required
+          <CategorySelect required createable
             onChange={(selectedCategories) => this.setState({ selectedCategories })}
           />
           <br/>

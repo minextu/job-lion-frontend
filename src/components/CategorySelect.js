@@ -26,11 +26,15 @@ class CategorySelect extends Component {
   }
 
   render() {
-    const { categories, required, isFetching } = this.props;
+    const { categories, isFetching } = this.props;
+    const { createable, required, disabled } = this.props;
     const { selectedCategories } = this.state;
 
+    let SelectComponent = Select;
+    if (createable) { SelectComponent = Select.Creatable; }
+
     return (
-      <Select.Creatable required={required} multi={true}
+      <SelectComponent required={required} multi={true} disabled={disabled}
         value={selectedCategories}
         newOptionCreator={(category) => ({ label: category.label, value: category.label, create: true })}
         options={categories.map(category => {
@@ -42,7 +46,8 @@ class CategorySelect extends Component {
         onChange={this.onChange}
         isLoading={isFetching}
         clearAllText="Alle löschen"
-        placeholder="Kategorien hinzufügen..."
+        placeholder="Kategorien auswählen..."
+        noResultsText="Keine Suchergebnisse"
         promptTextCreator={(label) => (`Kategorie "${label}" hinzufügen`)}
       />
     );
@@ -54,8 +59,11 @@ CategorySelect.propTypes = {
   errorCode: PropTypes.string,
   categories: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
+
+  onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
-  onChange: PropTypes.func.isRequired
+  disabled: PropTypes.bool,
+  createable: PropTypes.bool
 };
 
 const mapStateToProps = (state) => {

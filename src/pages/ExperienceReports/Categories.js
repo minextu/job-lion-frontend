@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import './Categories.css';
-import { fetchCategoriesIfNeeded } from '../../_actions/category';
 import { selectCategories } from '../../_actions/report';
+import CategorySelect from '../../components/CategorySelect';
 
 class Categories extends Component {
   constructor(props) {
@@ -19,10 +18,6 @@ class Categories extends Component {
     // reset categories
     this.props.dispatch(
       selectCategories([])
-    );
-
-    this.props.dispatch(
-      fetchCategoriesIfNeeded()
     );
   }
 
@@ -39,21 +34,10 @@ class Categories extends Component {
     );
   }
 
-  handleCategoryChange(e) {
-    const id = Number(e.target.id.replace('category_', ''));
-    const checked = e.target.checked;
-
-    let newSelectedCategories = this.state.selectedCategories.slice();
-
-    // add category to id if checked
-    if (checked) {
-      newSelectedCategories.push(id);
-    }
-    // remove from array if unchecked
-    else {
-      const index = newSelectedCategories.indexOf(id);
-      newSelectedCategories.splice(index, 1);
-    }
+  handleCategoryChange(categories) {
+    let newSelectedCategories = categories.map(category => {
+      return category.value;
+    });
 
     // save state
     this.setState({
@@ -103,44 +87,15 @@ class Categories extends Component {
     );
   }
 
-  renderCategories() {
-    const { categories } = this.props;
-
-    const categoriesHtml = categories.map((category, idx) => {
-      const id = "category_" + category.id;
-
-      return (
-        <div className="form-check" key={idx}>
-          <input
-            className="form-check-input"
-            type="checkbox"
-            id={id}
-            checked={this.state.selectedCategories.includes(category.id)}
-            onChange={this.handleCategoryChange}
-            disabled={this.state.activeCategoryFilter === "all"}
-          />
-          <label className="form-check-label" htmlFor={id}>
-            {category.name}
-          </label>
-        </div>
-      );
-    });
-
-    return categoriesHtml;
-  }
-
   render() {
-    const { isFetching } = this.props;
-
     return (
       <div>
         <h3>Kategorien</h3>
         {this.renderCategoryFilter()}
-        <div style={{ marginLeft: 20 + 'px' }}>
-          { isFetching
-          && <span className='inline-loading'/>
-          }
-          {this.renderCategories()}
+        <div style={{ marginTop: 10 + 'px' }}>
+          <CategorySelect
+            disabled={this.state.activeCategoryFilter === "all"}
+            onChange={this.handleCategoryChange}/>
         </div>
 
       </div>
@@ -151,17 +106,6 @@ class Categories extends Component {
 Categories.propTypes = {
   active: PropTypes.number,
   dispatch: PropTypes.func.isRequired,
-  categories: PropTypes.array.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  errorCode: PropTypes.string
 };
 
-const mapStateToProps = (state) => {
-  return {
-    categories: state.category.categories,
-    isFetching: state.category.isFetching,
-    errorCode: state.category.errorCode
-  };
-};
-
-export default connect(mapStateToProps)(Categories);
+export default connect()(Categories);
