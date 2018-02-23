@@ -6,16 +6,19 @@ export function login(email, password) {
 
 export function logout() {
   localStorage.removeItem('loginToken');
+  localStorage.removeItem('loginExpire');
   return {
     type: 'LOGOUT'
   };
 }
 
-function _receiveLoginToken(token) {
+function _receiveLoginToken(token, expire) {
   localStorage.setItem('loginToken', token);
+  localStorage.setItem('loginExpire', expire);
   return {
     type: 'RECEIVE_LOGIN_TOKEN',
-    token
+    token,
+    expire
   };
 }
 
@@ -44,7 +47,7 @@ function _sendLoginRequest(email, password) {
           dispatch(_receiveLoginTokenFailure(json.error));
         }
         else {
-          dispatch(_receiveLoginToken(json.token));
+          dispatch(_receiveLoginToken(json.token, json.expire));
         }
       });
   };

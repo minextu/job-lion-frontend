@@ -31,13 +31,17 @@ class Login extends Component {
   }
 
   render() {
-    const { loggedIn, isPrompt, errorCode } = this.props;
+    const { loggedIn, isPrompt, errorCode, expired } = this.props;
 
+    // TODO: replace with global alertbox component
     return (
       <div className="Anmeldung">
         <h1>Anmelden</h1>
-        { isPrompt
-          && <div className="alert alert-warning">Login benötigt</div>
+        { expired
+          && <div className="alert alert-warning">Login abgelaufen. Bitte erneut anmelden!</div>
+        }
+        { !expired && isPrompt
+          && <div className="alert alert-warning">Login benötigt!</div>
         }
         <AlertBox loggedIn={loggedIn} errorCode={errorCode}/>
         <form onSubmit={this.handleSubmit}>
@@ -69,6 +73,7 @@ Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired,
   isPrompt: PropTypes.bool,
+  expired: PropTypes.bool,
   errorCode: PropTypes.string
 };
 

@@ -22,7 +22,8 @@ test('REQUEST_LOGIN_TOKEN action changes state', () => {
 test('RECEIVE_LOGIN_TOKEN action changes state', () => {
   const action = {
     type: 'RECEIVE_LOGIN_TOKEN',
-    token: 'testToken'
+    token: 'testToken',
+    expire: 1
   };
   const stateBefore = {
 
@@ -30,7 +31,8 @@ test('RECEIVE_LOGIN_TOKEN action changes state', () => {
   const stateAfter = {
     isFetching: false,
     loggedIn: true,
-    token: 'testToken'
+    token: 'testToken',
+    expire: 1
   };
 
   expect(

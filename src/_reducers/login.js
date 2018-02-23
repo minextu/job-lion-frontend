@@ -1,6 +1,7 @@
 const defaultState = {
   isFetching: false,
   loggedIn: !!localStorage.getItem('loginToken'),
+  expire: localStorage.getItem('expire') ? localStorage.getItem('expire') : 0,
   token: localStorage.getItem('loginToken') ? localStorage.getItem('loginToken') : null,
   errorCode: null,
   redirectUrl: null
@@ -21,6 +22,7 @@ export default function loginReducer(state = defaultState, action) {
       ...state,
       isFetching: false,
       loggedIn: true,
+      expire: action.expire,
       token: action.token
     };
   case 'REQUEST_LOGIN_TOKEN_FAILURE':
