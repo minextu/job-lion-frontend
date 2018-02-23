@@ -5,12 +5,13 @@ import Categories from './Categories';
 import { connect } from 'react-redux';
 
 import { fetchReportsIfNeeded } from '../../_actions/report';
+import SmoothCollapse from 'react-smooth-collapse';
 import './List.css';
 
 class List extends Component {
   constructor(props) {
     super(props);
-    this.state = { page: 1, limit: 10 };
+    this.state = { page: 1, limit: 5 };
   }
 
   componentDidMount() {
@@ -126,9 +127,11 @@ class List extends Component {
 
               </div>
 
-              <ul className="list-group">
-                {reportEntries}
-              </ul>
+              <SmoothCollapse expanded={!isFetching}>
+                <ul className="list-group">
+                  {reportEntries}
+                </ul>
+              </SmoothCollapse>
 
             </div>
           </div>
