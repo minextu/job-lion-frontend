@@ -5,7 +5,9 @@ import { createLogger } from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import registerServiceWorker from './registerServiceWorker';
+
 import 'babel-polyfill';
+import 'url-search-params-polyfill';
 
 import reducers from './_reducers';
 import App from './App';
