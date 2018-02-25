@@ -4,6 +4,7 @@
     "proxy": "https://staging.job-lion.et.tc/",
     "private": true,
     "dependencies": {
+        "babel-polyfill": "^6.26.0",
         "bootstrap": "^4.0.0",
         "font-awesome": "^4.7.0",
         "jquery": "^3.3.1",
