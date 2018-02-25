@@ -27,4 +27,4 @@ npm install
 npm run build
 
 # sync static files to server
-rsync --delete -ave "ssh" build/ $server:$folder
+rsync -ave "ssh" build/ $server:$folder
