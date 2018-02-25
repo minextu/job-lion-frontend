@@ -1,7 +1,7 @@
 const defaultState = {
   isFetching: false,
   loggedIn: !!localStorage.getItem('loginToken'),
-  expire: localStorage.getItem('expire') ? localStorage.getItem('expire') : 0,
+  expire: localStorage.getItem('loginExpire') ? Number(localStorage.getItem('loginExpire')) : 0,
   token: localStorage.getItem('loginToken') ? localStorage.getItem('loginToken') : null,
   errorCode: null,
   redirectUrl: null
