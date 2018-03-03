@@ -12,7 +12,7 @@ class Api {
   static _fetch(url, params = {}, method, auth = false) {
     // add login token parameter
     if (auth) {
-      params.jwt = localStorage.getItem('loginToken');
+      //params.jwt = localStorage.getItem('loginToken');
     }
 
     // parse params

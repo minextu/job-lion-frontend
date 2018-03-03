@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import AlertBox from '../../components/AlertBox';
 
 import { fetchReportIfNeeded } from '../../_actions/report';
 
@@ -21,9 +22,7 @@ class Show extends Component {
     }
     else if (errorCode) {
       infoHtml = (
-        <div className="alert alert-danger" role="alert">
-          {errorCode}
-        </div>
+        <AlertBox messageCode={errorCode} />
       );
     }
     else {

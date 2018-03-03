@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import AlertBox from './AlertBox';
+import AlertBox from '../../components/AlertBox';
 import { login } from '../../_actions/login';
 import history from '../../history';
 
@@ -33,17 +33,26 @@ class Login extends Component {
   render() {
     const { loggedIn, isPrompt, errorCode, expired } = this.props;
 
-    // TODO: replace with global alertbox component
+    let messageCode;
+
+    if (errorCode) {
+      messageCode = errorCode;
+    }
+    else if (loggedIn) {
+      messageCode = "LoginSuccessful";
+    }
+    else if (expired) {
+      messageCode = "LoginExpired";
+    }
+    else if (isPrompt) {
+      messageCode = "LoginNeeded";
+    }
+
     return (
       <div className="Anmeldung">
         <h1>Anmelden</h1>
-        { expired
-          && <div className="alert alert-warning">Login abgelaufen. Bitte erneut anmelden!</div>
-        }
-        { !expired && isPrompt
-          && <div className="alert alert-warning">Login benötigt!</div>
-        }
-        <AlertBox loggedIn={loggedIn} errorCode={errorCode}/>
+        <AlertBox messageCode={messageCode}/>
+
         <form onSubmit={this.handleSubmit}>
 
           <label htmlFor="email">Email</label>

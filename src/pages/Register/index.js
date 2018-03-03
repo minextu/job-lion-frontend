@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { register } from '../../_actions/register';
+import AlertBox from '../../components/AlertBox';
 
 class Register extends Component {
   constructor(props) {
@@ -12,7 +14,7 @@ class Register extends Component {
       email: '',
       password: '',
       password2: '',
-      errorText: null };
+      messageCode: null };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -21,10 +23,10 @@ class Register extends Component {
     const { firstName, lastName, email, password, password2 } = this.state;
 
     e.preventDefault();
-    this.setState({ errorText: null });
+    this.setState({ messageCode: null });
 
     if (password !== password2) {
-      this.setState({ errorText: "Passwörter stimmen nicht überein!" });
+      this.setState({ messageCode: "PasswordsNotEqual" });
       return;
     }
 
@@ -34,30 +36,22 @@ class Register extends Component {
   }
 
   render() {
-    // TODO: replace with common AlertBox component
-    let errorText = null;
-    let success = null;
+    // Show caught errors
+    let messageCode;
 
-    if (this.state.errorText) {
-      errorText = this.state.errorText;
+    if (this.state.messageCode) {
+      messageCode = this.state.messageCode;
     }
     else if (this.props.errorCode) {
-      errorText = this.props.errorCode;
+      messageCode = this.props.errorCode;
     }
     else if (this.props.success) {
-      success = "Erfolgreich registriert! Eine Bestätigungsemail wurde gesendet.";
+      messageCode = "RegisterSuccessful";
     }
 
     return (
       <div>
-        {
-          errorText
-          && <div className="alert alert-danger">{errorText}</div>
-        }
-        {
-          success
-          && <div className="alert alert-success">{success}</div>
-        }
+        <AlertBox messageCode={messageCode} />
 
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="fname">Vorname</label>

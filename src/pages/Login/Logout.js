@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import AlertBox from '../../components/AlertBox';
 import { logout } from '../../_actions/login';
 
 class Logout extends Component {
@@ -20,13 +21,17 @@ class Logout extends Component {
   }
 
   render() {
+    let messageCode;
+
     if (this.alreadyLoggedOut) {
-      return (
-        <div className="alert alert-warning">Bereits ausgeloggt!</div>
-      );
+      messageCode = "AlreadyLoggedOut";
     }
+    else {
+      messageCode = "LogoutSuccessful";
+    }
+
     return (
-      <div className="alert alert-success">Erfolgreich abgemeldet!</div>
+      <AlertBox messageCode={messageCode}/>
     );
   }
 }

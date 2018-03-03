@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import CategorySelect from '../../components/CategorySelect';
+import AlertBox from '../../components/AlertBox';
+import CategorySelect from '../../components/Select/CategorySelect';
 import { createReport } from '../../_actions/report';
 
 class AddReport extends Component {
@@ -32,9 +33,7 @@ class AddReport extends Component {
           && <span className='inline-loading'/>
         }
 
-        { errorCode
-          && <div className='alert alert-danger'>{errorCode}</div>
-        }
+        <AlertBox messageCode={errorCode}/>
 
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="title">Titel</label>

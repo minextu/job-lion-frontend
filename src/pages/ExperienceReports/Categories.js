@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { selectCategories } from '../../_actions/report';
-import CategorySelect from '../../components/CategorySelect';
+import CategorySelect from '../../components/Select/CategorySelect';
 
 class Categories extends Component {
   constructor(props) {
@@ -12,13 +12,6 @@ class Categories extends Component {
 
     this.handleCategoryFilterChange = this.handleCategoryFilterChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
-  }
-
-  componentDidMount() {
-    // reset categories
-    //this.props.dispatch(
-    //  selectCategories([])
-    //);
   }
 
   handleCategoryFilterChange(e) {

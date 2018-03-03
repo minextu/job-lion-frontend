@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import CategorySelect from '../../components/CategorySelect';
+import CategorySelect from '../../components/Select/CategorySelect';
 import { showReportsByCategories } from '../../_actions/report';
 import './Search.css';
 

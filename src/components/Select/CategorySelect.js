@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { fetchCategoriesIfNeeded } from '../_actions/category';
-import Select from 'react-select';
-import './CategorySelect.css';
+import { fetchCategoriesIfNeeded } from '../../_actions/category';
+import Select from './Select';
 
 class CategorySelect extends Component {
   constructor(props) {
@@ -48,9 +47,6 @@ class CategorySelect extends Component {
     const { categories, isFetching, createable, selected } = this.props;
     const { selectedCategories } = this.state;
 
-    let SelectComponent = Select;
-    if (createable) { SelectComponent = Select.Creatable; }
-
     // initial selected options (if any)
     let value = selectedCategories;
     if (selected) {
@@ -64,7 +60,8 @@ class CategorySelect extends Component {
     }
 
     return (
-      <SelectComponent {...this.props} multi={true}
+      <Select {...this.props}
+        multi={true} createable={createable}
         newOptionCreator={(category) => ({ label: category.label, value: category.label, create: true })}
         isOptionUnique={this.isOptionUnique}
         options={categories.map(category => {
@@ -76,10 +73,6 @@ class CategorySelect extends Component {
         onChange={this.onChange}
         isLoading={isFetching}
         value={value}
-        clearAllText="Alle löschen"
-        placeholder="Kategorien auswählen..."
-        noResultsText="Keine Suchergebnisse"
-        promptTextCreator={(label) => (`Kategorie "${label}" hinzufügen`)}
       />
     );
   }
