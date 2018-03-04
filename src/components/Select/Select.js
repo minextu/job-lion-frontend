@@ -14,9 +14,8 @@ class Select extends Component {
     return (
       <SelectComponent {...this.props}
         clearAllText="Alle löschen"
-        placeholder="Kategorien auswählen..."
         noResultsText="Keine Suchergebnisse"
-        promptTextCreator={(label) => (`Kategorie "${label}" hinzufügen`)}
+        promptTextCreator={(label) => (`"${label}" hinzufügen`)}
       />
     );
   }

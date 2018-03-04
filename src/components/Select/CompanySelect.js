@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { fetchCategoriesIfNeeded } from '../../_actions/category';
+import { fetchCompaniesIfNeeded } from '../../_actions/company';
 import Select from './Select';
 
-class CategorySelect extends Component {
+class CompanySelect extends Component {
   constructor(props) {
     super(props);
-    this.state = { selectedCategories: '' };
+    this.state = { selectedCompany: '' };
 
     this.onChange = this.onChange.bind(this);
     this.isOptionUnique = this.isOptionUnique.bind(this);
@@ -16,22 +16,22 @@ class CategorySelect extends Component {
 
   componentDidMount() {
     this.props.dispatch(
-      fetchCategoriesIfNeeded()
+      fetchCompaniesIfNeeded()
     );
   }
 
-  onChange(selectedCategories) {
-    this.setState({ selectedCategories });
-    this.props.onChange(selectedCategories);
+  onChange(selectedCompany) {
+    this.setState({ selectedCompany });
+    this.props.onChange(selectedCompany);
   }
 
   isOptionUnique(o) {
-    const { categories } = this.props;
+    const { companies } = this.props;
 
     let value = o.option.value;
-    let options = categories.map(option => { return option.name.toLowerCase(); });
+    let options = companies.map(option => { return option.title.toLowerCase(); });
 
-    // don't allow empty categories
+    // don't allow empty companies
     if (!value.trim()) {
       return false;
     }
@@ -44,45 +44,45 @@ class CategorySelect extends Component {
   }
 
   render() {
-    const { categories, isFetching, createable, selected } = this.props;
-    const { selectedCategories } = this.state;
+    const { companies, isFetching, createable, selected } = this.props;
+    const { selectedCompany } = this.state;
 
     // initial selected options (if any)
-    let value = selectedCategories;
+    let value = selectedCompany;
     if (selected) {
       value = selected.map(id => {
         return {
           create: false,
           value: id,
-          label: categories.find(c => (c.id === id)).name
+          label: companies.find(c => (c.id === id)).title
         };
       });
     }
 
     return (
       <Select {...this.props}
-        multi={true} createable={createable}
-        newOptionCreator={(category) => ({ label: category.label, value: category.label, create: true })}
+        createable={createable}
+        newOptionCreator={(company) => ({ label: company.label, value: company.label, create: true })}
         isOptionUnique={this.isOptionUnique}
-        options={categories.map(category => {
+        options={companies.map(company => {
           return {
             create: false,
-            value: category.id,
-            label: category.name };
+            value: company.id,
+            label: company.title };
         })}
         onChange={this.onChange}
         isLoading={isFetching}
         value={value}
-        placeholder="Kategorien auswählen..."
+        placeholder="Firma auswählen..."
       />
     );
   }
 }
 
-CategorySelect.propTypes = {
+CompanySelect.propTypes = {
   dispatch: PropTypes.func.isRequired,
   errorCode: PropTypes.string,
-  categories: PropTypes.array.isRequired,
+  companies: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
 
   onChange: PropTypes.func.isRequired,
@@ -92,10 +92,10 @@ CategorySelect.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    errorCode: state.category.errorCode,
-    categories: state.category.categories,
-    isFetching: state.category.isFetching
+    errorCode: state.company.errorCode,
+    companies: state.company.companies,
+    isFetching: state.company.isFetching
   };
 };
 
-export default connect(mapStateToProps)(CategorySelect);
+export default connect(mapStateToProps)(CompanySelect);

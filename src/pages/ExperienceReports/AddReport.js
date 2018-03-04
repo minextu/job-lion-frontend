@@ -4,20 +4,26 @@ import { connect } from 'react-redux';
 
 import AlertBox from '../../components/AlertBox';
 import CategorySelect from '../../components/Select/CategorySelect';
+import CompanySelect from '../../components/Select/CompanySelect';
 import { createReport } from '../../_actions/report';
 
 class AddReport extends Component {
   constructor(props) {
     super(props);
-    this.state = { title: '', text: '', selectedCategories: '' };
+    this.state = {
+      title: '',
+      text: '',
+      selectedCategories: [],
+      selectedCompany: null
+    };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(e) {
-    const { title, text, selectedCategories } = this.state;
+    const { title, text, selectedCategories, selectedCompany } = this.state;
     this.props.dispatch(
-      createReport(title, text, selectedCategories)
+      createReport(title, text, selectedCategories, selectedCompany)
     );
     e.preventDefault();
   }
@@ -48,6 +54,13 @@ class AddReport extends Component {
 
           <CategorySelect required createable id='categories'
             onChange={(selectedCategories) => this.setState({ selectedCategories })}
+          />
+          <br/>
+
+          <label htmlFor='company'>Firma (Optional)</label>
+
+          <CompanySelect createable id='company'
+            onChange={(selectedCompany) => this.setState({ selectedCompany })}
           />
           <br/>
 

@@ -37,11 +37,11 @@ export function showReportsByCategories(categoryIds) {
   };
 }
 
-export function createReport(title, text, categories) {
+export function createReport(title, text, categories, company) {
   return (dispatch, getState) => {
     const state = getState().report;
     if (!state.isCreating) {
-      dispatch(_sendCreateReportRequest(title, text, categories));
+      dispatch(_sendCreateReportRequest(title, text, categories, company));
     }
   };
 }
@@ -157,10 +157,11 @@ function _createReportFailure(errorCode) {
   };
 }
 
-function _sendCreateReportRequest(title, text, categories) {
+function _sendCreateReportRequest(title, text, categories, company) {
   return async function (dispatch) {
     dispatch(_requestCreateReport());
 
+    // check job categories
     let jobCategoryIds = [];
     for (let key in categories) {
       let category = categories[key];
@@ -183,7 +184,27 @@ function _sendCreateReportRequest(title, text, categories) {
       }
     }
 
-    return api.post(`v1/experienceReports/`, { title, text, jobCategoryIds }, true)
+    // check company
+    let companyId;
+
+    // create this company if needed
+    if (company && company.create) {
+      await api.post(`v1/companies/`, { title: company.value }, true)
+        .then(json => {
+          if (json.error) {
+            dispatch(_createReportFailure(json.error));
+          }
+          else {
+            companyId = json.id;
+          }
+        });
+    }
+    else if (company) {
+      companyId = company.value;
+    }
+
+    // send report create request
+    return api.post(`v1/experienceReports/`, { title, text, jobCategoryIds, companyId }, true)
       .then(json => {
         if (json.error) {
           dispatch(_createReportFailure(json.error));
