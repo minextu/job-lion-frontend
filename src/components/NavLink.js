@@ -9,10 +9,12 @@ class NavLink extends Component {
       <Route path={to} location={location}>
         {
           ({ match }) => {
-            const className = match ? "nav-item active" : "nav-item";
+            const liClassName = match ? 'nav-item active' : 'nav-item';
+            const linkClassName = match ? 'nav-link active' : 'nav-link';
+
             return (
-              <li className={className} {...rest}>
-                <Link className="nav-link" to={to}>{children}</Link>
+              <li className={liClassName} {...rest}>
+                <Link className={linkClassName} to={to}>{children}</Link>
               </li>
             );
           }

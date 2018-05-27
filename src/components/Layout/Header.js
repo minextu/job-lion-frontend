@@ -4,7 +4,6 @@ import NavLink from '../NavLink';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'react-redux';
-import './Header.css';
 
 class Header extends Component {
   constructor(props) {
@@ -32,7 +31,7 @@ class Header extends Component {
 
     return (
       <header>
-        <nav className="navbar navbar-expand-md navbar-dark topNav">
+        <nav className="navbar navbar-expand-md navbar-dark bg-dark topNav">
           <Link className="navbar-brand" to="/">Job &bull; Lion</Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavContent" aria-controls="topNavContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>

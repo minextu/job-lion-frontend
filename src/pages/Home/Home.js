@@ -10,7 +10,7 @@ class Home extends Component {
     return (
       <div className="Home">
         <div className="parallax" />
-        <div id ="leiste" />
+        <div id ="leiste" className="bg-dark"/>
 
         <Search />
 
