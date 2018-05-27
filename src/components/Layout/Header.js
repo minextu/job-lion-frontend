@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import NavLink from '../NavLink';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'react-redux';
@@ -40,9 +41,14 @@ class Header extends Component {
             <div className="navbar-nav mr-auto">
 
               {this.state.navLinks.map((link, idx) => (
-                <li key={idx} data-toggle="collapse" data-target=".navbar-collapse.show">
-                  <Link className="nav-item nav-link" to={link.path}>{link.title}</Link>
-                </li>
+                <NavLink
+                  key={idx}
+                  data-toggle="collapse"
+                  data-target=".navbar-collapse.show"
+                  to={link.path}
+                >
+                  {link.title}
+                </NavLink>
               ))}
 
             </div>
@@ -50,15 +56,18 @@ class Header extends Component {
             <div className="navbar-nav ml-auto">
 
               {rightNavLinks.map((link, idx) => (
-                <li key={idx} data-toggle="collapse" data-target=".navbar-collapse.show">
-                  <Link className="nav-item nav-link" to={link.path}>
-                    { link.icon
+                <NavLink
+                  key={idx}
+                  data-toggle="collapse"
+                  data-target=".navbar-collapse.show"
+                  to={link.path}
+                >
+                  { link.icon
                       && <FontAwesome name={link.icon}/>
-                    }
-                    &nbsp;
-                    {link.title}
-                  </Link>
-                </li>
+                  }
+                  &nbsp;
+                  {link.title}
+                </NavLink>
               ))}
 
             </div>
@@ -70,7 +79,8 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  loggedIn: PropTypes.bool.isRequired
+  loggedIn: PropTypes.bool.isRequired,
+  location: PropTypes.object
 };
 
 const mapStateToProps = (state) => {

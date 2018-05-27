@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import history from './history';
 
 import Header from './components/Layout/Header';
@@ -14,7 +14,7 @@ import './index.css';
 const App = () => (
   <Router history={history}>
     <div id='App'>
-      <Header />
+      <Route component={Header} />
       <Main />
       <Footer />
     </div>
