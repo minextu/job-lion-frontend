@@ -6,24 +6,28 @@ import AlertBox from '../../components/AlertBox';
 import { logout } from '../../_actions/login';
 
 class Logout extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { alreadyLoggedOut: false };
+  }
+
   componentDidMount() {
     const { dispatch, loggedIn } = this.props;
 
     // stop if not logged in
     if (!loggedIn) {
-      this.alreadyLoggedOut = true;
+      this.setState({ alreadyLoggedOut: true });
     }
     // logout the user
     else {
       dispatch(logout());
-      this.alreadyLoggedOut = false;
     }
   }
 
   render() {
     let messageCode;
 
-    if (this.alreadyLoggedOut) {
+    if (this.state.alreadyLoggedOut) {
       messageCode = "AlreadyLoggedOut";
     }
     else {
