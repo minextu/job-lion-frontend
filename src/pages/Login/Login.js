@@ -23,9 +23,9 @@ class Login extends Component {
     e.preventDefault();
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate() {
     // redirect to start if logged in
-    if (nextProps.loggedIn) {
+    if (this.props.loggedIn) {
       history.push('/');
     }
   }

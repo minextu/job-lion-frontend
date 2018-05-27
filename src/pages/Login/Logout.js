@@ -6,7 +6,7 @@ import AlertBox from '../../components/AlertBox';
 import { logout } from '../../_actions/login';
 
 class Logout extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch, loggedIn } = this.props;
 
     // stop if not logged in

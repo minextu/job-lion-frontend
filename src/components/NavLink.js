@@ -25,7 +25,10 @@ class NavLink extends Component {
 NavLink.propTypes = {
   to: Link.propTypes.to,
   location: PropTypes.object,
-  children: PropTypes.object
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 };
 
 export default NavLink;

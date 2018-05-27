@@ -13,7 +13,7 @@ class PrivateRoute extends Component {
   }
 
   // check if login token has expired
-  componentWillMount() {
+  componentDidMount() {
     const { loggedIn, expire, dispatch } = this.props;
 
     if (loggedIn && Date.now() / 1000 > expire) {
