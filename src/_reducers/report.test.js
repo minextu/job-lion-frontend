@@ -170,6 +170,60 @@ test('CREATE_REPORT_FAILURE action changes state', () => {
   ).toEqual(stateAfter);
 });
 
+test('REQUEST_DELETE_REPORT action changes state', () => {
+  const action = {
+    type: 'REQUEST_DELETE_REPORT'
+  };
+  const stateBefore = {
+
+  };
+  const stateAfter = {
+    isDeleting: true,
+    errorCodeDelete: null
+  };
+
+  expect(
+    Reducer(stateBefore, action)
+  ).toEqual(stateAfter);
+});
+
+test('DELETE_REPORT_SUCCESS action changes state', () => {
+  const action = {
+    type: 'DELETE_REPORT_SUCCESS',
+    reportId: 2
+  };
+  const stateBefore = {
+    isDeleting: true,
+    reports: { 1: {}, 2: {}, 3: {} }
+  };
+  const stateAfter = {
+    isDeleting: false,
+    reports: { 1: {}, 3: {} }
+  };
+
+  expect(
+    Reducer(stateBefore, action)
+  ).toEqual(stateAfter);
+});
+
+test('DELETE_REPORT_FAILURE action changes state', () => {
+  const action = {
+    type: 'DELETE_REPORT_FAILURE',
+    errorCode: 'testError'
+  };
+  const stateBefore = {
+
+  };
+  const stateAfter = {
+    errorCodeDelete: 'testError',
+    isDeleting: false
+  };
+
+  expect(
+    Reducer(stateBefore, action)
+  ).toEqual(stateAfter);
+});
+
 test('SELECT_CATEGORIES action changes state', () => {
   const action = {
     type: 'SELECT_CATEGORIES',

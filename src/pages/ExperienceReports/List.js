@@ -112,7 +112,7 @@ class List extends Component {
             <div className="col" id='categoryRow'>
               <Categories />
             </div>
-            <div className="col-10">
+            <div className="col-lg-10">
 
               <div className='d-flex flex-wrap-reverse align-content-start justify-content-between'>
                 {this.renderPagination()}

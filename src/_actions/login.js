@@ -7,18 +7,21 @@ export function login(email, password) {
 export function logout() {
   localStorage.removeItem('loginToken');
   localStorage.removeItem('loginExpire');
+  localStorage.removeItem('loginIsAdmin');
   return {
     type: 'LOGOUT'
   };
 }
 
-function _receiveLoginToken(token, expire) {
+function _receiveLoginToken(token, expire, isAdmin) {
   localStorage.setItem('loginToken', token);
   localStorage.setItem('loginExpire', expire);
+  localStorage.setItem('loginIsAdmin', isAdmin);
   return {
     type: 'RECEIVE_LOGIN_TOKEN',
     token,
-    expire
+    expire,
+    isAdmin
   };
 }
 
@@ -47,7 +50,7 @@ function _sendLoginRequest(email, password) {
           dispatch(_receiveLoginTokenFailure(json.error));
         }
         else {
-          dispatch(_receiveLoginToken(json.token, json.expire));
+          dispatch(_receiveLoginToken(json.token, json.expire, json.user.isAdmin));
         }
       });
   };

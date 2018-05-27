@@ -9,6 +9,10 @@ class Api {
     return this._fetch(url, params, "POST", auth);
   }
 
+  static delete(url, params, auth) {
+    return this._fetch(url, params, "DELETE", auth);
+  }
+
   static _fetch(url, params = {}, method, auth = false) {
     // add login token parameter
     if (auth) {

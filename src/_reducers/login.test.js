@@ -11,6 +11,7 @@ test('REQUEST_LOGIN_TOKEN action changes state', () => {
     isFetching: true,
     loggedIn: false,
     token: null,
+    isAdmin: false,
     errorCode: null
   };
 
@@ -23,7 +24,8 @@ test('RECEIVE_LOGIN_TOKEN action changes state', () => {
   const action = {
     type: 'RECEIVE_LOGIN_TOKEN',
     token: 'testToken',
-    expire: 1
+    expire: 1,
+    isAdmin: true,
   };
   const stateBefore = {
 
@@ -32,7 +34,8 @@ test('RECEIVE_LOGIN_TOKEN action changes state', () => {
     isFetching: false,
     loggedIn: true,
     token: 'testToken',
-    expire: 1
+    expire: 1,
+    isAdmin: true
   };
 
   expect(
@@ -71,6 +74,7 @@ test('LOGOUT action changes state', () => {
 
   const stateAfter = {
     isFetching: false,
+    isAdmin: false,
     loggedIn: false,
     token: null
   };

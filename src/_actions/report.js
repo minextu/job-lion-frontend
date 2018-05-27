@@ -46,6 +46,10 @@ export function createReport(title, text, categories, company) {
   };
 }
 
+export function deleteReport(reportId) {
+  return _sendDeleteReportRequest(reportId);
+}
+
 export function selectCategories(categories) {
   return {
     type: 'SELECT_CATEGORIES',
@@ -204,13 +208,54 @@ function _sendCreateReportRequest(title, text, categories, company) {
     }
 
     // send report create request
-    return api.post(`v1/experienceReports/`, { title, text, jobCategoryIds, companyId }, true)
+    let parameters = { title, text, jobCategoryIds };
+    if (companyId) {
+      parameters.companyId = companyId;
+    }
+
+    return api.post(`v1/experienceReports/`, parameters, true)
       .then(json => {
         if (json.error) {
           dispatch(_createReportFailure(json.error));
         }
         else {
           dispatch(_createReportSuccess(json.id));
+        }
+      });
+  };
+}
+
+function _deleteReportSuccess(reportId) {
+  return {
+    type: 'DELETE_REPORT_SUCCESS',
+    reportId
+  };
+}
+
+function _requestDeleteReport() {
+  return {
+    type: 'REQUEST_DELETE_REPORT'
+  };
+}
+
+function _deleteReportFailure(errorCode) {
+  return {
+    type: 'DELETE_REPORT_FAILURE',
+    errorCode
+  };
+}
+
+function _sendDeleteReportRequest(reportId) {
+  return function (dispatch) {
+    dispatch(_requestDeleteReport());
+
+    return api.delete(`v1/experienceReports/${reportId}`, {}, true)
+      .then(json => {
+        if (json.error) {
+          dispatch(_deleteReportFailure(json.error));
+        }
+        else {
+          dispatch(_deleteReportSuccess(reportId));
         }
       });
   };

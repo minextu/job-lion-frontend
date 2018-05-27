@@ -2,6 +2,7 @@ const defaultState = {
   isFetching: false,
   loggedIn: !!localStorage.getItem('loginToken'),
   expire: localStorage.getItem('loginExpire') ? Number(localStorage.getItem('loginExpire')) : 0,
+  isAdmin: !!localStorage.getItem('loginIsAdmin'),
   token: localStorage.getItem('loginToken') ? localStorage.getItem('loginToken') : null,
   errorCode: null,
   redirectUrl: null
@@ -15,6 +16,7 @@ export default function loginReducer(state = defaultState, action) {
       isFetching: true,
       loggedIn: false,
       token: null,
+      isAdmin: false,
       errorCode: null
     };
   case 'RECEIVE_LOGIN_TOKEN':
@@ -23,6 +25,7 @@ export default function loginReducer(state = defaultState, action) {
       isFetching: false,
       loggedIn: true,
       expire: action.expire,
+      isAdmin: action.isAdmin,
       token: action.token
     };
   case 'REQUEST_LOGIN_TOKEN_FAILURE':
@@ -35,6 +38,7 @@ export default function loginReducer(state = defaultState, action) {
     return {
       ...state,
       loggedIn: false,
+      isAdmin: false,
       token: null
     };
   case 'SET_LOGIN_REDIRECT_URL':

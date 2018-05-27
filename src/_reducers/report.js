@@ -1,6 +1,7 @@
 const defaultState = {
   isFetching: false,
   isCreating: false,
+  isDeleting: false,
   reportList: [],
   reportListTotal: null,
   reports: {},
@@ -8,7 +9,8 @@ const defaultState = {
   fetchedCategories: [],
   reportOffset: null,
   errorCode: null,
-  errorCodeCreate: null
+  errorCodeCreate: null,
+  errorCodeDelete: null
 };
 
 export default function reportReducer(state = defaultState, action) {
@@ -62,7 +64,6 @@ export default function reportReducer(state = defaultState, action) {
       isFetching: false,
       errorCode: action.errorCode
     };
-
   case 'REQUEST_CREATE_REPORT':
     return {
       ...state,
@@ -80,6 +81,24 @@ export default function reportReducer(state = defaultState, action) {
       isCreating: false,
       errorCodeCreate: action.errorCode
     };
+  case 'REQUEST_DELETE_REPORT':
+    return {
+      ...state,
+      isDeleting: true,
+      errorCodeDelete: null
+    };
+  case 'DELETE_REPORT_SUCCESS':
+    return {
+      ...state,
+      isDeleting: false,
+      reports: removeByKey(state.reports, action.reportId)
+    };
+  case 'DELETE_REPORT_FAILURE':
+    return {
+      ...state,
+      isDeleting: false,
+      errorCodeDelete: action.errorCode
+    };
   case 'SELECT_CATEGORIES':
     return {
       ...state,
@@ -88,4 +107,15 @@ export default function reportReducer(state = defaultState, action) {
   default:
     return state;
   }
+}
+
+// Ref: https://github.com/erikras/react-redux-universal-hot-example/issues/962#issuecomment-219354496
+function removeByKey(object, deleteKey) {
+  console.log(typeof deleteKey);
+  return Object.keys(object)
+    .filter(key => Number(key) !== deleteKey)
+    .reduce((result, current) => {
+      result[current] = object[current];
+      return result;
+    }, {});
 }
