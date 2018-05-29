@@ -37,7 +37,7 @@ class Activate extends Component {
           this.setState({ error: json.error, isFetching: false });
         }
         else {
-          this.setState({ success: true, isFetching: false });
+          this.setState({ success: true, isFetching: false, error: null });
         }
       });
   }
