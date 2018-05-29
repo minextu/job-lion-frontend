@@ -45,6 +45,10 @@ const AlertBox = ({
     InvalidPassword: {
       text: "Das Password ist ungeeignet!",
       type: "danger"
+    },
+    InvalidActivationCode: {
+      text: "Der eingebene Aktivierungscode ist ungültig, oder wurde bereits benutzt!",
+      type: "danger"
     }
   };
 
