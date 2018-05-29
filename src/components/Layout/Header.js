@@ -4,6 +4,7 @@ import NavLink from '../NavLink';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'react-redux';
+import LoadingBar from 'react-redux-loading-bar';
 
 class Header extends Component {
   constructor(props) {
@@ -72,6 +73,7 @@ class Header extends Component {
             </div>
           </div>
         </nav>
+        <LoadingBar style={{ backgroundColor: '#ff9933' }}/>
       </header>
     );
   }

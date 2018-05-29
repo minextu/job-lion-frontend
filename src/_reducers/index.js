@@ -5,12 +5,16 @@ import company from './company';
 import report from './report';
 import register from './register';
 
+import { loadingBarReducer } from 'react-redux-loading-bar';
+
 const reducers = combineReducers({
   login,
   category,
   company,
   report,
-  register
+  register,
+
+  loadingBar: loadingBarReducer,
 });
 
 export default reducers;

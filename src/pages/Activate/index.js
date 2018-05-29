@@ -26,7 +26,7 @@ class Activate extends Component {
     }
   }
 
-  onSubmit(e, code) {
+  onSubmit(code) {
     const { userId } = this.props.match.params;
 
     this.setState({ isFetching: true });
@@ -56,7 +56,7 @@ class Activate extends Component {
         }
 
         <label htmlFor="activationCode">Bestätigungscode</label>
-        <form className="form-inline" onSubmit={(e) => { e.preventDefault(); this.onSubmit(e, code); }}>
+        <form className="form-inline" onSubmit={(e) => { e.preventDefault(); this.onSubmit(code); }}>
           <div className="form-group mb-2 mr-sm-3">
             <input required id="activationCode" className="form-control"
               type="text"

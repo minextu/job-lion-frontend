@@ -1,9 +1,8 @@
 import Reducer from './report';
 
-test('REQUEST_REPORTS action changes state', () => {
+test('FETCH_REPORT_LIST_PENDING action changes state', () => {
   const action = {
-    type: 'REQUEST_REPORTS',
-    categoryId: 1
+    type: 'FETCH_REPORT_LIST_PENDING',
   };
   const stateBefore = {
 
@@ -21,13 +20,15 @@ test('REQUEST_REPORTS action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('RECEIVE_REPORTS action changes state', () => {
+test('FETCH_REPORT_LIST_FULFILLED action changes state', () => {
   const action = {
-    type: 'RECEIVE_REPORTS',
-    categoryIds: [1],
-    reports: [{ id: 0, name: "test" }],
-    total: 2,
-    offset: 3
+    type: 'FETCH_REPORT_LIST_FULFILLED',
+    payload: {
+      categoryIds: [1],
+      reports: [{ id: 0, name: "test" }],
+      total: 2,
+      offset: 3
+    }
   };
   const stateBefore = {
 
@@ -45,10 +46,10 @@ test('RECEIVE_REPORTS action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('REQUEST_REPORTS_FAILURE action changes state', () => {
+test('FETCH_REPORT_LIST_REJECTED action changes state', () => {
   const action = {
-    type: 'REQUEST_REPORTS_FAILURE',
-    errorCode: 'testError'
+    type: 'FETCH_REPORT_LIST_REJECTED',
+    payload: new Error('testError')
   };
   const stateBefore = {
 
@@ -63,10 +64,12 @@ test('REQUEST_REPORTS_FAILURE action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('REQUEST_REPORT action changes state', () => {
+test('FETCH_REPORT_PENDING action changes state', () => {
   const action = {
-    type: 'REQUEST_REPORT',
-    reportId: 0
+    type: 'FETCH_REPORT_PENDING',
+    meta: {
+      reportId: 0
+    }
   };
   const stateBefore = {
 
@@ -82,11 +85,15 @@ test('REQUEST_REPORT action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('RECEIVE_REPORT action changes state', () => {
+test('FETCH_REPORT_FULFILLED action changes state', () => {
   const action = {
-    type: 'RECEIVE_REPORT',
-    report: { id: 0, name: "test" },
-    reportId: 0
+    type: 'FETCH_REPORT_FULFILLED',
+    payload: {
+      report: { id: 0, name: "test" }
+    },
+    meta: {
+      reportId: 0
+    }
   };
   const stateBefore = {
 
@@ -101,10 +108,10 @@ test('RECEIVE_REPORT action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('REQUEST_REPORT_FAILURE action changes state', () => {
+test('FETCH_REPORT_REJECTED action changes state', () => {
   const action = {
-    type: 'REQUEST_REPORT_FAILURE',
-    errorCode: 'testError'
+    type: 'FETCH_REPORT_REJECTED',
+    payload: new Error('testError')
   };
   const stateBefore = {
 
@@ -119,9 +126,9 @@ test('REQUEST_REPORT_FAILURE action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('REQUEST_CREATE_REPORT action changes state', () => {
+test('CREATE_REPORT_PENDING action changes state', () => {
   const action = {
-    type: 'REQUEST_CREATE_REPORT'
+    type: 'CREATE_REPORT_PENDING'
   };
   const stateBefore = {
 
@@ -136,9 +143,9 @@ test('REQUEST_CREATE_REPORT action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('CREATE_REPORT_SUCCESS action changes state', () => {
+test('CREATE_REPORT_FULFILLED action changes state', () => {
   const action = {
-    type: 'CREATE_REPORT_SUCCESS',
+    type: 'CREATE_REPORT_FULFILLED',
   };
   const stateBefore = {
     isCreating: true,
@@ -152,10 +159,10 @@ test('CREATE_REPORT_SUCCESS action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('CREATE_REPORT_FAILURE action changes state', () => {
+test('CREATE_REPORT_REJECTED action changes state', () => {
   const action = {
-    type: 'CREATE_REPORT_FAILURE',
-    errorCode: 'testError'
+    type: 'CREATE_REPORT_REJECTED',
+    payload: new Error('testError')
   };
   const stateBefore = {
 
@@ -170,9 +177,9 @@ test('CREATE_REPORT_FAILURE action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('REQUEST_DELETE_REPORT action changes state', () => {
+test('DELETE_REPORT_PENDING action changes state', () => {
   const action = {
-    type: 'REQUEST_DELETE_REPORT'
+    type: 'DELETE_REPORT_PENDING'
   };
   const stateBefore = {
 
@@ -187,10 +194,12 @@ test('REQUEST_DELETE_REPORT action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('DELETE_REPORT_SUCCESS action changes state', () => {
+test('DELETE_REPORT_FULFILLED action changes state', () => {
   const action = {
-    type: 'DELETE_REPORT_SUCCESS',
-    reportId: 2
+    type: 'DELETE_REPORT_FULFILLED',
+    payload: {
+      reportId: 2
+    }
   };
   const stateBefore = {
     isDeleting: true,
@@ -206,10 +215,10 @@ test('DELETE_REPORT_SUCCESS action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('DELETE_REPORT_FAILURE action changes state', () => {
+test('DELETE_REPORT_REJECTED action changes state', () => {
   const action = {
-    type: 'DELETE_REPORT_FAILURE',
-    errorCode: 'testError'
+    type: 'DELETE_REPORT_REJECTED',
+    payload: new Error('testError')
   };
   const stateBefore = {
 

@@ -1,8 +1,8 @@
 import Reducer from './register';
 
-test('REQUEST_REGISTER action changes state', () => {
+test('REQUEST_REGISTER_PENDING action changes state', () => {
   const action = {
-    type: 'REQUEST_REGISTER'
+    type: 'REQUEST_REGISTER_PENDING'
   };
   const stateBefore = {
 
@@ -18,9 +18,9 @@ test('REQUEST_REGISTER action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('REGISTER_SUCCESS action changes state', () => {
+test('REQUEST_REGISTER_FULFILLED action changes state', () => {
   const action = {
-    type: 'REGISTER_SUCCESS',
+    type: 'REQUEST_REGISTER_FULFILLED',
   };
   const stateBefore = {
     loading: true,
@@ -35,10 +35,10 @@ test('REGISTER_SUCCESS action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('REGISTER_FAILURE action changes state', () => {
+test('REQUEST_REGISTER_REJECTED action changes state', () => {
   const action = {
-    type: 'REGISTER_FAILURE',
-    errorCode: 'testError'
+    type: 'REQUEST_REGISTER_REJECTED',
+    payload: new Error('testError')
   };
   const stateBefore = {
 

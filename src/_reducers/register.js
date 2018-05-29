@@ -6,24 +6,24 @@ const defaultState = {
 
 export default function registerReducer(state = defaultState, action) {
   switch (action.type) {
-  case 'REQUEST_REGISTER':
+  case 'REQUEST_REGISTER_PENDING':
     return {
       ...state,
       loading: true,
       success: false,
       errorCode: null
     };
-  case 'REGISTER_SUCCESS':
+  case 'REQUEST_REGISTER_FULFILLED':
     return {
       ...state,
       loading: false,
       success: true
     };
-  case 'REGISTER_FAILURE':
+  case 'REQUEST_REGISTER_REJECTED':
     return {
       ...state,
       loading: false,
-      errorCode: action.errorCode
+      errorCode: action.payload.message
     };
   default:
     return state;

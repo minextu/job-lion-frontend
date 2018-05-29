@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getUserInfoIfNeeded } from '../../_actions/login';
+import { fetchLoginInfoIfNeeded } from '../../_actions/login';
 import AlertBox from '../../components/AlertBox';
 
 class Profile extends Component {
@@ -12,7 +12,7 @@ class Profile extends Component {
 
   componentDidMount() {
     this.props.dispatch(
-      getUserInfoIfNeeded()
+      fetchLoginInfoIfNeeded()
     );
   }
 

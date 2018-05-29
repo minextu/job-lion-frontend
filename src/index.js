@@ -5,6 +5,8 @@ import { createLogger } from 'redux-logger';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import registerServiceWorker from './registerServiceWorker';
+import promiseMiddleware from 'redux-promise-middleware';
+import { loadingBarMiddleware } from 'react-redux-loading-bar';
 
 import 'babel-polyfill';
 import 'url-search-params-polyfill';
@@ -13,7 +15,7 @@ import reducers from './_reducers';
 import App from './App';
 
 // setup middleware
-let middleware = [thunkMiddleware];
+let middleware = [thunkMiddleware, promiseMiddleware(), loadingBarMiddleware()];
 if (process.env.NODE_ENV !== 'production') {
   const loggerMiddleware = createLogger();
   middleware = [...middleware, loggerMiddleware];

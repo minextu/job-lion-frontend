@@ -15,7 +15,7 @@ const defaultState = {
 
 export default function reportReducer(state = defaultState, action) {
   switch (action.type) {
-  case 'REQUEST_REPORTS':
+  case 'FETCH_REPORT_LIST_PENDING':
     return {
       ...state,
       isFetching: true,
@@ -24,80 +24,80 @@ export default function reportReducer(state = defaultState, action) {
       fetchedCategories: [],
       errorCode: null
     };
-  case 'RECEIVE_REPORTS':
+  case 'FETCH_REPORT_LIST_FULFILLED':
     return {
       ...state,
       isFetching: false,
-      fetchedCategories: action.categoryIds,
-      reportList: action.reports,
-      reportListTotal: action.total,
-      reportOffset: action.offset
+      fetchedCategories: action.payload.categoryIds,
+      reportList: action.payload.reports,
+      reportListTotal: action.payload.total,
+      reportOffset: action.payload.offset
     };
-  case 'REQUEST_REPORTS_FAILURE':
+  case 'FETCH_REPORT_LIST_REJECTED':
     return {
       ...state,
       isFetching: false,
-      errorCode: action.errorCode
+      errorCode: action.payload.message
     };
-  case 'REQUEST_REPORT':
+  case 'FETCH_REPORT_PENDING':
     return {
       ...state,
       isFetching: true,
       reports: {
         ...state.reports,
-        [action.reportId]: {}
+        [action.meta.reportId]: {}
       },
       errorCode: null
     };
-  case 'RECEIVE_REPORT':
+  case 'FETCH_REPORT_FULFILLED':
     return {
       ...state,
       isFetching: false,
       reports: {
         ...state.reports,
-        [action.reportId]: action.report
+        [action.meta.reportId]: action.payload.report
       }
     };
-  case 'REQUEST_REPORT_FAILURE':
+  case 'FETCH_REPORT_REJECTED':
     return {
       ...state,
       isFetching: false,
-      errorCode: action.errorCode
+      errorCode: action.payload.message
     };
-  case 'REQUEST_CREATE_REPORT':
+  case 'CREATE_REPORT_PENDING':
     return {
       ...state,
       isCreating: true,
       errorCodeCreate: null
     };
-  case 'CREATE_REPORT_SUCCESS':
+  case 'CREATE_REPORT_FULFILLED':
     return {
       ...state,
       isCreating: false
     };
-  case 'CREATE_REPORT_FAILURE':
+  case 'CREATE_REPORT_REJECTED':
     return {
       ...state,
       isCreating: false,
-      errorCodeCreate: action.errorCode
+      errorCodeCreate: action.payload.message
     };
-  case 'REQUEST_DELETE_REPORT':
+  case 'DELETE_REPORT_PENDING':
     return {
       ...state,
       isDeleting: true,
       errorCodeDelete: null
     };
-  case 'DELETE_REPORT_SUCCESS':
+  case 'DELETE_REPORT_FULFILLED':
     return {
       ...state,
       isDeleting: false,
-      reports: removeByKey(state.reports, action.reportId)
+      reports: removeByKey(state.reports, action.payload.reportId)
     };
-  case 'DELETE_REPORT_FAILURE':
+  case 'DELETE_REPORT_REJECTED':
     return {
       ...state,
       isDeleting: false,
-      errorCodeDelete: action.errorCode
+      errorCodeDelete: action.payload.message
     };
   case 'SELECT_CATEGORIES':
     return {

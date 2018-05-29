@@ -44,9 +44,11 @@ class Api {
         }
         return response.json();
       })
-      .catch(err => {
-        console.error(err);
-        alert(err);
+      .then(json => {
+        if (json.error) {
+          throw new Error(json.error);
+        }
+        return json;
       });
   }
 }

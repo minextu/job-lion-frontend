@@ -1,8 +1,8 @@
 import Reducer from './login';
 
-test('REQUEST_LOGIN_TOKEN action changes state', () => {
+test('REQUEST_LOGIN_TOKEN_PENDING action changes state', () => {
   const action = {
-    type: 'REQUEST_LOGIN_TOKEN'
+    type: 'REQUEST_LOGIN_TOKEN_PENDING'
   };
   const stateBefore = {
 
@@ -20,12 +20,14 @@ test('REQUEST_LOGIN_TOKEN action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('RECEIVE_LOGIN_TOKEN action changes state', () => {
+test('REQUEST_LOGIN_TOKEN_FULFILLED action changes state', () => {
   const action = {
-    type: 'RECEIVE_LOGIN_TOKEN',
-    token: 'testToken',
-    expire: 1,
-    isAdmin: true,
+    type: 'REQUEST_LOGIN_TOKEN_FULFILLED',
+    payload: {
+      token: 'testToken',
+      expire: 1,
+      isAdmin: true
+    }
   };
   const stateBefore = {
 
@@ -43,10 +45,10 @@ test('RECEIVE_LOGIN_TOKEN action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('REQUEST_LOGIN_TOKEN_FAILURE action changes state', () => {
+test('REQUEST_LOGIN_TOKEN_REJECTED action changes state', () => {
   const action = {
-    type: 'REQUEST_LOGIN_TOKEN_FAILURE',
-    errorCode: 'testError'
+    type: 'REQUEST_LOGIN_TOKEN_REJECTED',
+    payload: new Error('testError')
   };
   const stateBefore = {
 
@@ -102,9 +104,9 @@ test('SET_LOGIN_REDIRECT_URL action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('REQUEST_LOGIN_INFO action changes state', () => {
+test('FETCH_LOGIN_INFO_PENDING action changes state', () => {
   const action = {
-    type: 'REQUEST_LOGIN_INFO'
+    type: 'FETCH_LOGIN_INFO_PENDING'
   };
   const stateBefore = {
 
@@ -120,17 +122,19 @@ test('REQUEST_LOGIN_INFO action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('RECEIVE_LOGIN_INFO action changes state', () => {
+test('FETCH_LOGIN_INFO_FULFILLED action changes state', () => {
   const action = {
-    type: 'RECEIVE_LOGIN_INFO',
-    info: { id: 1, firstName: "test" }
+    type: 'FETCH_LOGIN_INFO_FULFILLED',
+    payload: {
+      info: { id: 1, firstName: "test" }
+    }
   };
   const stateBefore = {
 
   };
   const stateAfter = {
     isFetching: false,
-    info: action.info
+    info: action.payload.info
   };
 
   expect(
@@ -138,10 +142,10 @@ test('RECEIVE_LOGIN_INFO action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('REQUEST_LOGIN_INFO_FAILURE action changes state', () => {
+test('FETCH_LOGIN_INFO_REJECTED action changes state', () => {
   const action = {
-    type: 'REQUEST_LOGIN_INFO_FAILURE',
-    errorCode: 'testError'
+    type: 'FETCH_LOGIN_INFO_REJECTED',
+    payload: new Error('testError')
   };
   const stateBefore = {
 

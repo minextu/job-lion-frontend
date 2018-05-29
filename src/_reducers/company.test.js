@@ -1,8 +1,8 @@
 import Reducer from './company';
 
-test('REQUEST_COMPANIES action changes state', () => {
+test('FETCH_COMPANIES_PENDING action changes state', () => {
   const action = {
-    type: 'REQUEST_COMPANIES'
+    type: 'FETCH_COMPANIES_PENDING'
   };
   const stateBefore = {
 
@@ -18,10 +18,12 @@ test('REQUEST_COMPANIES action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('RECEIVE_COMPANIES action changes state', () => {
+test('FETCH_COMPANIES_FULFILLED action changes state', () => {
   const action = {
-    type: 'RECEIVE_COMPANIES',
-    companies: [{ id: 0, name: "test" }]
+    type: 'FETCH_COMPANIES_FULFILLED',
+    payload: {
+      companies: [{ id: 0, name: "test" }]
+    }
   };
   const stateBefore = {
 
@@ -36,10 +38,10 @@ test('RECEIVE_COMPANIES action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('REQUEST_COMPANIES_FAILURE action changes state', () => {
+test('FETCH_COMPANIES_REJECTED action changes state', () => {
   const action = {
-    type: 'REQUEST_COMPANIES_FAILURE',
-    errorCode: 'testError'
+    type: 'FETCH_COMPANIES_REJECTED',
+    payload: new Error('testError')
   };
   const stateBefore = {
 

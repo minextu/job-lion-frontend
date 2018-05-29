@@ -6,43 +6,19 @@ export function fetchCompaniesIfNeeded() {
     const companies = state.companies;
 
     if (companies.length === 0 && !state.isFetching) {
-      dispatch(_sendCompanyRequest());
+      dispatch(fetchCompanies());
     }
   };
 }
 
-function _receiveCompanies(companies) {
+function fetchCompanies() {
   return {
-    type: 'RECEIVE_COMPANIES',
-    companies
+    type: 'FETCH_COMPANIES',
+    payload: _sendFetchCompanyRequest()
   };
 }
 
-function _requestCompanies() {
-  return {
-    type: 'REQUEST_COMPANIES',
-  };
-}
-
-function _receiveCompaniesFailure(errorCode) {
-  return {
-    type: 'REQUEST_COMPANIES_FAILURE',
-    errorCode
-  };
-}
-
-function _sendCompanyRequest() {
-  return function (dispatch) {
-    dispatch(_requestCompanies());
-
-    return api.get("v1/companies/")
-      .then(json => {
-        if (json.error) {
-          dispatch(_receiveCompaniesFailure(json.error));
-        }
-        else {
-          dispatch(_receiveCompanies(json.companies));
-        }
-      });
-  };
+function _sendFetchCompanyRequest() {
+  return api.get("v1/companies/")
+    .then(json => ({ companies: json.companies }));
 }

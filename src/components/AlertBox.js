@@ -49,6 +49,10 @@ const AlertBox = ({
     InvalidActivationCode: {
       text: "Der eingebene Aktivierungscode ist ungültig, oder wurde bereits benutzt!",
       type: "danger"
+    },
+    NotActivated: {
+      text: "Die E-Mail wurde noch nicht bestätigt!",
+      type: "warning"
     }
   };
 

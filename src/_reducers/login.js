@@ -11,7 +11,7 @@ const defaultState = {
 
 export default function loginReducer(state = defaultState, action) {
   switch (action.type) {
-  case 'REQUEST_LOGIN_TOKEN':
+  case 'REQUEST_LOGIN_TOKEN_PENDING':
     return {
       ...state,
       isFetching: true,
@@ -20,20 +20,20 @@ export default function loginReducer(state = defaultState, action) {
       isAdmin: false,
       errorCode: null
     };
-  case 'RECEIVE_LOGIN_TOKEN':
+  case 'REQUEST_LOGIN_TOKEN_FULFILLED':
     return {
       ...state,
       isFetching: false,
       loggedIn: true,
-      expire: action.expire,
-      isAdmin: action.isAdmin,
-      token: action.token
+      expire: action.payload.expire,
+      isAdmin: action.payload.isAdmin,
+      token: action.payload.token
     };
-  case 'REQUEST_LOGIN_TOKEN_FAILURE':
+  case 'REQUEST_LOGIN_TOKEN_REJECTED':
     return {
       ...state,
       isFetching: false,
-      errorCode: action.errorCode
+      errorCode: action.payload.message
     };
   case 'LOGOUT':
     return {
@@ -47,24 +47,24 @@ export default function loginReducer(state = defaultState, action) {
       ...state,
       redirectUrl: action.redirectUrl
     };
-  case 'REQUEST_LOGIN_INFO':
+  case 'FETCH_LOGIN_INFO_PENDING':
     return {
       ...state,
       isFetching: true,
       info: {},
       errorCode: null
     };
-  case 'RECEIVE_LOGIN_INFO':
+  case 'FETCH_LOGIN_INFO_FULFILLED':
     return {
       ...state,
       isFetching: false,
-      info: action.info
+      info: action.payload.info
     };
-  case 'REQUEST_LOGIN_INFO_FAILURE':
+  case 'FETCH_LOGIN_INFO_REJECTED':
     return {
       ...state,
       isFetching: false,
-      errorCode: action.errorCode
+      errorCode: action.payload.message
     };
   default:
     return state;

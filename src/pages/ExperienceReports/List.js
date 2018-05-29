@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Categories from './Categories';
 import { connect } from 'react-redux';
 
-import { fetchReportsIfNeeded } from '../../_actions/report';
+import { fetchReportListIfNeeded } from '../../_actions/report';
 import SmoothCollapse from 'react-smooth-collapse';
 import './List.css';
 
@@ -19,7 +19,7 @@ class List extends Component {
     const { limit, page } = this.state;
 
     this.props.dispatch(
-      fetchReportsIfNeeded(selectedCategories, limit, page)
+      fetchReportListIfNeeded(selectedCategories, limit, page)
     );
   }
 
@@ -36,7 +36,7 @@ class List extends Component {
       }
 
       this.props.dispatch(
-        fetchReportsIfNeeded(selectedCategories, limit, page)
+        fetchReportListIfNeeded(selectedCategories, limit, page)
       );
     }
   }

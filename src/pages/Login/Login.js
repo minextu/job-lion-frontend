@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import AlertBox from '../../components/AlertBox';
-import { login } from '../../_actions/login';
+import { requestLoginToken } from '../../_actions/login';
 import history from '../../history';
 
 class Login extends Component {
@@ -16,11 +16,11 @@ class Login extends Component {
   }
 
   handleSubmit(e) {
+    e.preventDefault();
     const { email, password } = this.state;
     this.props.dispatch(
-      login(email, password)
+      requestLoginToken(email, password)
     );
-    e.preventDefault();
   }
 
   componentDidUpdate() {

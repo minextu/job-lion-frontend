@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { register } from '../../_actions/register';
+import { requestRegister } from '../../_actions/register';
 import AlertBox from '../../components/AlertBox';
 
 class Register extends Component {
@@ -31,7 +31,7 @@ class Register extends Component {
     }
 
     this.props.dispatch(
-      register(firstName, lastName, email, password)
+      requestRegister(firstName, lastName, email, password)
     );
   }
 

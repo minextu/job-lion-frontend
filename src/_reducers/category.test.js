@@ -1,8 +1,8 @@
 import Reducer from './category';
 
-test('REQUEST_CATEGORIES action changes state', () => {
+test('FETCH_CATEGORIES_PENDING action changes state', () => {
   const action = {
-    type: 'REQUEST_CATEGORIES'
+    type: 'FETCH_CATEGORIES_PENDING'
   };
   const stateBefore = {
 
@@ -18,10 +18,12 @@ test('REQUEST_CATEGORIES action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('RECEIVE_CATEGORIES action changes state', () => {
+test('FETCH_CATEGORIES_FULFILLED action changes state', () => {
   const action = {
-    type: 'RECEIVE_CATEGORIES',
-    categories: [{ id: 0, name: "test" }]
+    type: 'FETCH_CATEGORIES_FULFILLED',
+    payload: {
+      categories: [{ id: 0, name: "test" }]
+    }
   };
   const stateBefore = {
 
@@ -36,10 +38,10 @@ test('RECEIVE_CATEGORIES action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('REQUEST_CATEGORIES_FAILURE action changes state', () => {
+test('FETCH_CATEGORIES_REJECTED action changes state', () => {
   const action = {
-    type: 'REQUEST_CATEGORIES_FAILURE',
-    errorCode: 'testError'
+    type: 'FETCH_CATEGORIES_REJECTED',
+    payload: new Error('testError')
   };
   const stateBefore = {
 
@@ -54,9 +56,9 @@ test('REQUEST_CATEGORIES_FAILURE action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('REQUEST_DELETE_CATEGORY action changes state', () => {
+test('DELETE_CATEGORY_PENDING action changes state', () => {
   const action = {
-    type: 'REQUEST_DELETE_CATEGORY'
+    type: 'DELETE_CATEGORY_PENDING'
   };
   const stateBefore = {
 
@@ -71,10 +73,12 @@ test('REQUEST_DELETE_CATEGORY action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('DELETE_CATEGORY_SUCCESS action changes state', () => {
+test('DELETE_CATEGORY_FULFILLED action changes state', () => {
   const action = {
-    type: 'DELETE_CATEGORY_SUCCESS',
-    categoryId: 2
+    type: 'DELETE_CATEGORY_FULFILLED',
+    payload: {
+      categoryId: 2
+    }
   };
   const stateBefore = {
     isDeleting: true,
@@ -90,10 +94,10 @@ test('DELETE_CATEGORY_SUCCESS action changes state', () => {
   ).toEqual(stateAfter);
 });
 
-test('DELETE_CATEGORY_FAILURE action changes state', () => {
+test('DELETE_CATEGORY_REJECTED action changes state', () => {
   const action = {
-    type: 'DELETE_CATEGORY_FAILURE',
-    errorCode: 'testError'
+    type: 'DELETE_CATEGORY_REJECTED',
+    payload: new Error('testError')
   };
   const stateBefore = {
 
