@@ -53,3 +53,57 @@ test('REQUEST_CATEGORIES_FAILURE action changes state', () => {
     Reducer(stateBefore, action)
   ).toEqual(stateAfter);
 });
+
+test('REQUEST_DELETE_CATEGORY action changes state', () => {
+  const action = {
+    type: 'REQUEST_DELETE_CATEGORY'
+  };
+  const stateBefore = {
+
+  };
+  const stateAfter = {
+    isDeleting: true,
+    errorCodeDelete: null
+  };
+
+  expect(
+    Reducer(stateBefore, action)
+  ).toEqual(stateAfter);
+});
+
+test('DELETE_CATEGORY_SUCCESS action changes state', () => {
+  const action = {
+    type: 'DELETE_CATEGORY_SUCCESS',
+    categoryId: 2
+  };
+  const stateBefore = {
+    isDeleting: true,
+    categories: [{ id: 1 }, { id: 2 }, { id: 3 }]
+  };
+  const stateAfter = {
+    isDeleting: false,
+    categories: [{ id: 1 }, { id: 3 }]
+  };
+
+  expect(
+    Reducer(stateBefore, action)
+  ).toEqual(stateAfter);
+});
+
+test('DELETE_CATEGORY_FAILURE action changes state', () => {
+  const action = {
+    type: 'DELETE_CATEGORY_FAILURE',
+    errorCode: 'testError'
+  };
+  const stateBefore = {
+
+  };
+  const stateAfter = {
+    errorCodeDelete: 'testError',
+    isDeleting: false
+  };
+
+  expect(
+    Reducer(stateBefore, action)
+  ).toEqual(stateAfter);
+});

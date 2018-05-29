@@ -8,6 +8,7 @@ import Impressum from '../pages/Impressum';
 import { Login, Logout } from '../pages/Login';
 import Register from '../pages/Register';
 import PasswortVergessen from '../pages/PasswortVergessen';
+import Settings from '../pages/Settings';
 import Datenschutz from '../pages/Datenschutz';
 import Haftungsausschluss from '../pages/Haftungsausschluss';
 import NotFound from '../pages/NotFound';
@@ -28,6 +29,7 @@ class PublicRoutes extends Component {
         <Route exact path='/Abmelden' component={Logout}/>
         <Route exact path='/Registrieren' component={Register}/>
         <Route exact path='/PasswortVergessen' component={PasswortVergessen}/>
+        <PrivateRoute path='/Einstellungen' component={Settings}/>
         <Route exact path='/Datenschutz' component={Datenschutz}/>
         <Route exact path='/Haftungsausschluss' component={Haftungsausschluss}/>
         <Route path="*" component={NotFound} />

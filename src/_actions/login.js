@@ -13,6 +13,16 @@ export function logout() {
   };
 }
 
+export function getUserInfoIfNeeded() {
+  return (dispatch, getState) => {
+    const state = getState().login;
+    const info = state.info;
+    if (Object.keys(info).length === 0 && !state.isFetching) {
+      dispatch(_sendInfoRequest());
+    }
+  };
+}
+
 function _receiveLoginToken(token, expire, isAdmin) {
   localStorage.setItem('loginToken', token);
   localStorage.setItem('loginExpire', expire);
@@ -51,6 +61,42 @@ function _sendLoginRequest(email, password) {
         }
         else {
           dispatch(_receiveLoginToken(json.token, json.expire, json.user.isAdmin));
+        }
+      });
+  };
+}
+
+function _receiveInfo(info) {
+  return {
+    type: 'RECEIVE_LOGIN_INFO',
+    info
+  };
+}
+
+function _requestInfo() {
+  return {
+    type: 'REQUEST_LOGIN_INFO'
+  };
+}
+
+function _receiveInfoFailure(errorCode) {
+  return {
+    type: 'REQUEST_LOGIN_INFO_FAILURE',
+    errorCode
+  };
+}
+
+function _sendInfoRequest() {
+  return function (dispatch) {
+    dispatch(_requestInfo());
+
+    return api.get("v1/auth/info")
+      .then(json => {
+        if (json.error) {
+          dispatch(_receiveInfoFailure(json.error));
+        }
+        else {
+          dispatch(_receiveInfo(json.user));
         }
       });
   };

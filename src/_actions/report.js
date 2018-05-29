@@ -172,7 +172,7 @@ function _sendCreateReportRequest(title, text, categories, company) {
 
       // create this category if needed
       if (category.create) {
-        await api.post(`v1/jobCategories/`, { name: category.value }, true)
+        await api.post(`v1/jobCategories/`, { name: category.value })
           .then(json => {
             if (json.error) {
               dispatch(_createReportFailure(json.error));
@@ -193,7 +193,7 @@ function _sendCreateReportRequest(title, text, categories, company) {
 
     // create this company if needed
     if (company && company.create) {
-      await api.post(`v1/companies/`, { title: company.value }, true)
+      await api.post(`v1/companies/`, { title: company.value })
         .then(json => {
           if (json.error) {
             dispatch(_createReportFailure(json.error));
@@ -213,7 +213,7 @@ function _sendCreateReportRequest(title, text, categories, company) {
       parameters.companyId = companyId;
     }
 
-    return api.post(`v1/experienceReports/`, parameters, true)
+    return api.post(`v1/experienceReports/`, parameters)
       .then(json => {
         if (json.error) {
           dispatch(_createReportFailure(json.error));
@@ -249,7 +249,7 @@ function _sendDeleteReportRequest(reportId) {
   return function (dispatch) {
     dispatch(_requestDeleteReport());
 
-    return api.delete(`v1/experienceReports/${reportId}`, {}, true)
+    return api.delete(`v1/experienceReports/${reportId}`)
       .then(json => {
         if (json.error) {
           dispatch(_deleteReportFailure(json.error));

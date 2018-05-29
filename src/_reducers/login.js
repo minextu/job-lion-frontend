@@ -4,6 +4,7 @@ const defaultState = {
   expire: localStorage.getItem('loginExpire') ? Number(localStorage.getItem('loginExpire')) : 0,
   isAdmin: !!localStorage.getItem('loginIsAdmin'),
   token: localStorage.getItem('loginToken') ? localStorage.getItem('loginToken') : null,
+  info: {},
   errorCode: null,
   redirectUrl: null
 };
@@ -45,6 +46,25 @@ export default function loginReducer(state = defaultState, action) {
     return {
       ...state,
       redirectUrl: action.redirectUrl
+    };
+  case 'REQUEST_LOGIN_INFO':
+    return {
+      ...state,
+      isFetching: true,
+      info: {},
+      errorCode: null
+    };
+  case 'RECEIVE_LOGIN_INFO':
+    return {
+      ...state,
+      isFetching: false,
+      info: action.info
+    };
+  case 'REQUEST_LOGIN_INFO_FAILURE':
+    return {
+      ...state,
+      isFetching: false,
+      errorCode: action.errorCode
     };
   default:
     return state;

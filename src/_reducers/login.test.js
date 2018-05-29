@@ -101,3 +101,57 @@ test('SET_LOGIN_REDIRECT_URL action changes state', () => {
     Reducer(stateBefore, action)
   ).toEqual(stateAfter);
 });
+
+test('REQUEST_LOGIN_INFO action changes state', () => {
+  const action = {
+    type: 'REQUEST_LOGIN_INFO'
+  };
+  const stateBefore = {
+
+  };
+  const stateAfter = {
+    isFetching: true,
+    info: {},
+    errorCode: null
+  };
+
+  expect(
+    Reducer(stateBefore, action)
+  ).toEqual(stateAfter);
+});
+
+test('RECEIVE_LOGIN_INFO action changes state', () => {
+  const action = {
+    type: 'RECEIVE_LOGIN_INFO',
+    info: { id: 1, firstName: "test" }
+  };
+  const stateBefore = {
+
+  };
+  const stateAfter = {
+    isFetching: false,
+    info: action.info
+  };
+
+  expect(
+    Reducer(stateBefore, action)
+  ).toEqual(stateAfter);
+});
+
+test('REQUEST_LOGIN_INFO_FAILURE action changes state', () => {
+  const action = {
+    type: 'REQUEST_LOGIN_INFO_FAILURE',
+    errorCode: 'testError'
+  };
+  const stateBefore = {
+
+  };
+  const stateAfter = {
+    errorCode: 'testError',
+    isFetching: false
+  };
+
+  expect(
+    Reducer(stateBefore, action)
+  ).toEqual(stateAfter);
+});

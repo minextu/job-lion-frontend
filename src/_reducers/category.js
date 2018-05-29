@@ -1,7 +1,9 @@
 const defaultState = {
   isFetching: false,
+  isDeleting: false,
   categories: [],
-  errorCode: null
+  errorCode: null,
+  errorCodeDelete: null
 };
 
 export default function categoryReducer(state = defaultState, action) {
@@ -23,6 +25,25 @@ export default function categoryReducer(state = defaultState, action) {
       ...state,
       isFetching: false,
       errorCode: action.errorCode
+    };
+  case 'REQUEST_DELETE_CATEGORY':
+    return {
+      ...state,
+      isDeleting: true,
+      errorCodeDelete: null
+    };
+  case 'DELETE_CATEGORY_SUCCESS':
+    var category = state.categories.find(e => e.id === action.categoryId);
+    return {
+      ...state,
+      isDeleting: false,
+      categories: state.categories.filter(item => item !== category)
+    };
+  case 'DELETE_CATEGORY_FAILURE':
+    return {
+      ...state,
+      isDeleting: false,
+      errorCodeDelete: action.errorCode
     };
   default:
     return state;
