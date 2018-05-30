@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import api from '../../ApiClient';
 import history from '../../history';
@@ -22,10 +21,10 @@ class Activate extends Component {
   }
 
   componentDidMount() {
-    const query = queryString.parse(this.props.location.search);
-    if (query.code) {
-      this.setState({ code: query.code });
-      this.onSubmit(query.code);
+    const query = new URLSearchParams(this.props.location.search);
+    if (query.get('code')) {
+      this.setState({ code: query.get('code') });
+      this.onSubmit(query.get('code'));
     }
   }
 
