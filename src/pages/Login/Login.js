@@ -31,7 +31,7 @@ class Login extends Component {
   }
 
   render() {
-    const { loggedIn, isPrompt, errorCode, expired } = this.props;
+    const { loggedIn, customMessageCode, errorCode } = this.props;
 
     let messageCode;
 
@@ -41,11 +41,8 @@ class Login extends Component {
     else if (loggedIn) {
       messageCode = "LoginSuccessful";
     }
-    else if (expired) {
-      messageCode = "LoginExpired";
-    }
-    else if (isPrompt) {
-      messageCode = "LoginNeeded";
+    else if (customMessageCode) {
+      messageCode = customMessageCode;
     }
 
     return (
@@ -81,14 +78,14 @@ class Login extends Component {
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired,
-  isPrompt: PropTypes.bool,
-  expired: PropTypes.bool,
+  customMessageCode: PropTypes.string,
   errorCode: PropTypes.string
 };
 
 const mapStateToProps = (state) => {
   return {
     loggedIn: state.login.loggedIn,
+    customMessageCode: state.login.customMessageCode,
     errorCode: state.login.errorCode
   };
 };

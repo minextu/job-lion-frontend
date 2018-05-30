@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { logout } from '../_actions/login';
+import { logout, showLoginMessageCode } from '../_actions/login';
 import { Login } from '../pages/Login';
 
 class PrivateRoute extends Component {
@@ -26,15 +26,16 @@ class PrivateRoute extends Component {
   }
 
   renderRoute(routeProps, Component) {
-    const { loggedIn } = this.props;
+    const { loggedIn, dispatch } = this.props;
     const { tokenExpired } = this.state;
 
     if (loggedIn) {
       return (<Component {...routeProps} />);
     }
-    else {
-      return (<Login isPrompt expired={tokenExpired}/>);
-    }
+
+    const messageCode = tokenExpired ? 'LoginExpired' : 'LoginNeeded';
+    dispatch(showLoginMessageCode(messageCode));
+    return (<Login/>);
   }
 
   render() {

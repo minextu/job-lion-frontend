@@ -33,6 +33,13 @@ export function fetchLoginInfo() {
   };
 }
 
+export function showLoginMessageCode(messageCode) {
+  return {
+    type: 'SHOW_CUSTOM_LOGIN_MESSAGE_CODE',
+    messageCode
+  };
+}
+
 function _sendLoginRequest(email, password) {
   return api.post("v1/auth/login", { email, password })
     .then(json => {

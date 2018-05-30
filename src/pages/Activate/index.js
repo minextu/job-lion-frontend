@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import api from '../../ApiClient';
+import history from '../../history';
 import AlertBox from '../../components/AlertBox';
+import { showLoginMessageCode } from '../../_actions/login';
+import { connect } from 'react-redux';
 
 class Activate extends Component {
   constructor(props) {
@@ -33,28 +36,31 @@ class Activate extends Component {
 
     api.get("v1/auth/activate", { user: userId, activationCode: code })
       .then(json => {
-        if (json.error) {
-          this.setState({ error: json.error, isFetching: false });
-        }
-        else {
-          this.setState({ success: true, isFetching: false, error: null });
-        }
+        this.setState({ success: true, isFetching: false, error: null });
+      })
+      .catch(e => {
+        this.setState({ error: e.message, isFetching: false });
       });
   }
 
+  componentDidUpdate() {
+    const { dispatch } = this.props;
+    const { success } = this.state;
+
+    if (success) {
+      dispatch(showLoginMessageCode("LoginActivatedSuccessful"));
+      history.push('/Anmelden');
+    }
+  }
+
   render() {
-    const { error, isFetching, success, code } = this.state;
+    const { error, isFetching, code } = this.state;
 
     return (
       <div>
         <h1>E-Mail bestätigen</h1>
 
         <AlertBox messageCode={error}/>
-
-        { success
-          && <div className='alert alert-success'>E-Mail wurde erfolgreich aktiviert. Du kannst dich jetzt einloggen</div>
-        }
-
         <label htmlFor="activationCode">Bestätigungscode</label>
         <form className="form-inline" onSubmit={(e) => { e.preventDefault(); this.onSubmit(code); }}>
           <div className="form-group mb-2 mr-sm-3">
@@ -80,7 +86,8 @@ class Activate extends Component {
 
 Activate.propTypes = {
   match: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
-export default Activate;
+export default connect()(Activate);

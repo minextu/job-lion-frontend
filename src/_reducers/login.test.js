@@ -12,7 +12,8 @@ test('REQUEST_LOGIN_TOKEN_PENDING action changes state', () => {
     loggedIn: false,
     token: null,
     isAdmin: false,
-    errorCode: null
+    errorCode: null,
+    customMessageCode: null
   };
 
   expect(
@@ -153,6 +154,23 @@ test('FETCH_LOGIN_INFO_REJECTED action changes state', () => {
   const stateAfter = {
     errorCode: 'testError',
     isFetching: false
+  };
+
+  expect(
+    Reducer(stateBefore, action)
+  ).toEqual(stateAfter);
+});
+
+test('SHOW_CUSTOM_LOGIN_MESSAGE_CODE action changes state', () => {
+  const action = {
+    type: 'SHOW_CUSTOM_LOGIN_MESSAGE_CODE',
+    messageCode: 'test'
+  };
+  const stateBefore = {
+
+  };
+  const stateAfter = {
+    customMessageCode: 'test'
   };
 
   expect(

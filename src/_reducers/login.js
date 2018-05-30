@@ -5,6 +5,7 @@ const defaultState = {
   isAdmin: !!localStorage.getItem('loginIsAdmin'),
   token: localStorage.getItem('loginToken') ? localStorage.getItem('loginToken') : null,
   info: {},
+  customMessageCode: null,
   errorCode: null,
   redirectUrl: null
 };
@@ -18,7 +19,8 @@ export default function loginReducer(state = defaultState, action) {
       loggedIn: false,
       token: null,
       isAdmin: false,
-      errorCode: null
+      errorCode: null,
+      customMessageCode: null
     };
   case 'REQUEST_LOGIN_TOKEN_FULFILLED':
     return {
@@ -65,6 +67,11 @@ export default function loginReducer(state = defaultState, action) {
       ...state,
       isFetching: false,
       errorCode: action.payload.message
+    };
+  case 'SHOW_CUSTOM_LOGIN_MESSAGE_CODE':
+    return {
+      ...state,
+      customMessageCode: action.messageCode
     };
   default:
     return state;

@@ -50,6 +50,10 @@ const AlertBox = ({
       text: "Der eingebene Aktivierungscode ist ungültig, oder wurde bereits benutzt!",
       type: "danger"
     },
+    LoginActivatedSuccessful: {
+      text: "E-Mail wurde erfolgreich aktiviert. Du kannst dich jetzt einloggen",
+      type: "success"
+    },
     NotActivated: {
       text: "Die E-Mail wurde noch nicht bestätigt!",
       type: "warning"
